@@ -8,6 +8,7 @@ const Router = ({ theme }) => {
     <Routes>
       <Route path="/" element={<Home theme={theme} />} />
       <Route path="detail/:id" element={<Detail theme={theme} />} />
+      <Route path="*" element={<h2>404</h2>} />
     </Routes>
   );
 };
