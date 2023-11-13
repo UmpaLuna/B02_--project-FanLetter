@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import GlobalStyle from "./styledComponents/GlobalStyle.js";
-
 import Router from "./shared/Router.jsx";
 import Layout from "./Components/Layout.jsx";
 import { ThemeProvider } from "styled-components";
@@ -17,17 +15,20 @@ function App() {
 
   useEffect(() => {
     console.log("useEffect :", "render");
+
     const getItem = getLocalStorageItem();
     if (!getItem)
       return localStorage.setItem("Tooniverse", JSON.stringify(lists));
     if (getItem !== null) return setLists(getLocalStorageItem());
   }, [lists]);
+
   return (
     <>
-      <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Layout />
-        <Router />
+        <GlobalStyle />
+        <Layout>
+          <Router />
+        </Layout>
       </ThemeProvider>
     </>
   );

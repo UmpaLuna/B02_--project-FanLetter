@@ -2,21 +2,21 @@ import { createGlobalStyle } from "styled-components"
 import reset from "styled-reset"
 
 const GlobalStyle =createGlobalStyle`
-// reset Css 
-${reset}
+
+/* ${reset} */
 
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
 }
 
 html,
 body {
-   min-width: 100%;
-min-height: 100%;
+   min-width: 100vw;
+   min-height: 100vh;
 }
 
 html {
@@ -27,7 +27,6 @@ html {
 body {
     padding: 0;
     margin: 0;
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 0.9rem;
     line-height: 1rem;
     color: #333;
