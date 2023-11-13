@@ -1,22 +1,18 @@
 import { createGlobalStyle } from "styled-components"
-import reset from "styled-reset"
-
+// import reset from "styled-reset"
+import reset from "./reset.module.css"
 const GlobalStyle =createGlobalStyle`
-
-/* ${reset} */
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+    font-family: 'Montserrat', 'Noto Sans KR', sans-serif !important;
 }
 
 html,
 body {
-   min-width: 100vw;
-   min-height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 html {
@@ -77,7 +73,7 @@ img {
   height: 100%;
   vertical-align: top;
 }
-
+${reset}
 `
 
 export default GlobalStyle
