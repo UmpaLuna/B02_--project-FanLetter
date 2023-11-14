@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import GlobalStyle from "./styledComponents/GlobalStyle.js";
 import Router from "./shared/Router.jsx";
-import Layout from "./Components/Layout.jsx";
-import { ThemeProvider } from "styled-components";
-import theme from "./styledComponents/theme/theme.js";
+
 function App() {
   console.log("App :", "Render");
   const [lists, setLists] = useState({});
+  const [tab, setTab] = useState(0);
   const getLocalStorageItem = () => {
     const getItem = localStorage.getItem("Tooniverse");
     if (getItem === null) return false;
@@ -24,12 +23,8 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout>
-          <Router />
-        </Layout>
-      </ThemeProvider>
+      <GlobalStyle />
+      <Router lists={lists} setLists={setLists} tab={tab} setTab={setTab} />
     </>
   );
 }
