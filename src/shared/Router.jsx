@@ -5,7 +5,7 @@ import Layout from "../Components/Layout";
 import { ThemeProvider } from "styled-components";
 import theme from "../styledComponents/theme/theme";
 
-const Router = ({ lists, setLists, tab, setTab }) => {
+const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
   console.log("Router :", "Render");
   return (
     <BrowserRouter>
@@ -21,6 +21,7 @@ const Router = ({ lists, setLists, tab, setTab }) => {
                   setLists={setLists}
                   tab={tab}
                   setTab={setTab}
+                  setLocalStorageItem={setLocalStorageItem}
                 />
               }
             />

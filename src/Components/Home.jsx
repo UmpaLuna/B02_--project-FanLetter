@@ -1,18 +1,11 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  memo,
-} from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import uuid from "react-uuid";
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
 
-function Home({ theme, lists, setList }) {
+function Home({ theme, lists, setLists, setLocalStorageItem }) {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
   const character = theme.character;
@@ -56,8 +49,14 @@ function Home({ theme, lists, setList }) {
         );
       }, [character])}
       <NavigateBar theme={theme} tab={tab} setTab={setTab} />
-      <Form lists={lists} setList={setList} setTab={setTab} />
-      <LetterList />
+      <Form
+        theme={theme}
+        lists={lists}
+        setLists={setLists}
+        setTab={setTab}
+        setLocalStorageItem={setLocalStorageItem}
+      />
+      <LetterList lists={lists} theme={theme} tab={tab} />
     </>
   );
 }

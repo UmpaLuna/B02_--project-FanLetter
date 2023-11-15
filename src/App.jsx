@@ -6,25 +6,37 @@ function App() {
   console.log("App :", "Render");
   const [lists, setLists] = useState({});
   const [tab, setTab] = useState(0);
+
   const getLocalStorageItem = () => {
-    const getItem = localStorage.getItem("Tooniverse");
-    if (getItem === null) return false;
-    return JSON.stringify(getItem);
+    const getData = localStorage.getItem("Tooniverse");
+    const parseData = JSON.parse(getData);
+    return parseData;
+  };
+
+  const setLocalStorageItem = () => {
+    localStorage.setItem("Tooniverse", JSON.stringify(lists));
   };
 
   useEffect(() => {
     console.log("useEffect :", "render");
-
     const getItem = getLocalStorageItem();
-    if (!getItem)
-      return localStorage.setItem("Tooniverse", JSON.stringify(lists));
-    if (getItem !== null) return setLists(getLocalStorageItem());
-  }, [lists]);
+
+    if (getItem === undefined || getItem === null) setLocalStorageItem();
+    else {
+      setLists(getLocalStorageItem());
+    }
+  }, []);
 
   return (
     <>
       <GlobalStyle />
-      <Router lists={lists} setLists={setLists} tab={tab} setTab={setTab} />
+      <Router
+        lists={lists}
+        setLists={setLists}
+        tab={tab}
+        setTab={setTab}
+        setLocalStorageItem={setLocalStorageItem}
+      />
     </>
   );
 }

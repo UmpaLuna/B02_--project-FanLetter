@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const StFormContainer = styled.div`
   margin: 0 auto;
   max-width: 380px;
-  padding: 1rem 2.4rem;
+  padding: 0 2.4rem;
 `;
 export const StForm = styled.form`
   padding: 2rem 0;
@@ -12,7 +12,7 @@ export const StForm = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: 3rem 0;
+  margin: 2rem 0;
   border-radius: 17px;
 `;
 const StyledButton = styled.button`
