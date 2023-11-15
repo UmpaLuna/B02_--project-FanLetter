@@ -28,7 +28,12 @@ const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
             />
             <Route
               path={`detail/:member/:id`}
-              element={<Detail lists={lists} />}
+              element={
+                <Detail
+                  lists={lists}
+                  setLocalStorageItem={setLocalStorageItem}
+                />
+              }
             />
             <Route path="*" element={<h1>404 찾을수 없으셈</h1>} />
           </Routes>
