@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import React from "react";
 import {
   StLayoutHeader,
   StLayoutLogoContainer,
@@ -37,12 +39,13 @@ function Layout({ children }) {
     "손오공 언제 철들래;;; 치치에게 감사해라",
     "어쨋거나 내 유년시절 그대들에게 감사",
   ];
+  const navigate = useNavigate();
 
   return (
     <>
       <StLayoutHeader>
         <StLayoutNavBar>
-          <StLayoutLogoContainer>
+          <StLayoutLogoContainer onClick={() => navigate("/")}>
             <StLayoutLogoImg />
           </StLayoutLogoContainer>
           <StLayoutBox>

@@ -19,7 +19,8 @@ function NavigateBar({ theme, tab, setTab }) {
             onClick={() => {
               handleClickTab(idx);
             }}
-            $isActive={idx === tab}
+            $isActive={tab}
+            $idx={idx}
             key={uuid()}
           >
             {item}
