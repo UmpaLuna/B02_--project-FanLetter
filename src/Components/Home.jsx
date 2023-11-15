@@ -4,13 +4,14 @@ import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
+import { useNavigate } from "react-router-dom";
 
 function Home({ theme, lists, setLists, setLocalStorageItem }) {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
   const character = theme.character;
   const [tab, setTab] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
 
@@ -54,9 +55,10 @@ function Home({ theme, lists, setLists, setLocalStorageItem }) {
         lists={lists}
         setLists={setLists}
         setTab={setTab}
+        tab={tab}
         setLocalStorageItem={setLocalStorageItem}
       />
-      <LetterList lists={lists} theme={theme} tab={tab} />
+      <LetterList navigate={navigate} lists={lists} theme={theme} tab={tab} />
     </>
   );
 }

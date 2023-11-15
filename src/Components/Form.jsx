@@ -9,7 +9,7 @@ import {
 } from "../styledComponents/StyledForm";
 import uuid from "react-uuid";
 
-function Form({ theme, lists, setLists, setLocalStorageItem }) {
+function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
   const character = theme.character;
   const formRef = useRef({});
   const inputLabelNameId = useId();
@@ -17,12 +17,16 @@ function Form({ theme, lists, setLists, setLocalStorageItem }) {
   const selectLabelId = useId();
   console.log("Form : Render");
 
+  const controllOfTabWithinSelect = (e) => {
+    setTab(e.target.value);
+  };
   const checkValidForm = () => {
-    const name = formRef.name.value;
-    const text = formRef.text.value;
+    const name = formRef.name;
+    const text = formRef.text;
 
-    if (name.trim() === "") return;
-    if (text.trim() === "") return;
+    if (name.value.trim() === "") return;
+    if (text.value.trim() === "") return;
+
     setFanLetterData(name, text);
   };
   const setFanLetterData = (checkedName, checkedText) => {
@@ -32,20 +36,21 @@ function Form({ theme, lists, setLists, setLocalStorageItem }) {
     console.log(lists);
     const letter = {
       id: uuid(),
-      name: checkedName,
-      text: checkedText,
-      date: new Date(),
+      name: checkedName.value,
+      text: checkedText.value,
+      date: new Date().toString(),
+      target: formRef.target.value,
     };
-    lists[formRef.target.value].shift(letter);
+    lists[formRef.target.value].unshift(letter);
     setLists({ ...lists });
     setLocalStorageItem();
-
-    // formRef.name.value = "";
-    // formRef.text.value = "";
+    console.log(lists);
+    checkedName.value = "";
+    checkedText.value = "";
   };
   return (
     <StFormContainer>
-      <StForm ref={formRef}>
+      <StForm>
         <StInputContainer>
           <StInputLabel htmlFor={inputLabelNameId}>nickName</StInputLabel>
           <StInput
@@ -74,9 +79,10 @@ function Form({ theme, lists, setLists, setLocalStorageItem }) {
             ref={(ref) => (formRef["target"] = ref)}
             as="select"
             id={selectLabelId}
-            defaultValue="드래곤볼"
+            value={tab}
+            onChange={controllOfTabWithinSelect}
           >
-            {character.map((item) => (
+            {character.map((item, i) => (
               <StInput key={uuid()} as="option" value={item}>
                 {item}
               </StInput>

@@ -7,13 +7,21 @@ import {
   StNothingLetterParagraph,
   StComment,
 } from "../styledComponents/StyledLetterForm";
+import uuid from "react-uuid";
 
-function LetterList({ lists, tab, theme }) {
+function LetterList({ lists, tab, theme, navigate }) {
   const listArr = lists[theme.character[tab]];
+  const navigateDetailPage = (id) => {
+    console.log(id);
+    navigate(`/detail/${id}`);
+  };
   const doShowList = () => {
     return listArr.map((item) => {
       return (
-        <StFanLetter>
+        <StFanLetter
+          key={uuid()}
+          onClick={() => navigateDetailPage(`${item.target}/${item.id}`)}
+        >
           <StComment.Div>
             <StComment.Avatar />
           </StComment.Div>

@@ -7,6 +7,7 @@ import theme from "../styledComponents/theme/theme";
 
 const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
   console.log("Router :", "Render");
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -25,7 +26,10 @@ const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
                 />
               }
             />
-            <Route path="detail/:id" element={<Detail />} />
+            <Route
+              path={`detail/:member/:id`}
+              element={<Detail lists={lists} />}
+            />
             <Route path="*" element={<h1>404 찾을수 없으셈</h1>} />
           </Routes>
         </Layout>
