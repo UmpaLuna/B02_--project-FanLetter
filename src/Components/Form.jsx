@@ -9,13 +9,40 @@ import {
 } from "../styledComponents/StyledForm";
 import uuid from "react-uuid";
 
-function Form({ lists, setList }) {
-  let options = ["드래곤볼", "천사소녀네티", "신의괴도잔느", "디지몬", "단비"];
+function Form({ theme, lists, setLists, setLocalStorageItem }) {
+  const character = theme.character;
   const formRef = useRef({});
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
   const selectLabelId = useId();
   console.log("Form : Render");
+
+  const checkValidForm = () => {
+    const name = formRef.name.value;
+    const text = formRef.text.value;
+
+    if (name.trim() === "") return;
+    if (text.trim() === "") return;
+    setFanLetterData(name, text);
+  };
+  const setFanLetterData = (checkedName, checkedText) => {
+    if (lists[formRef.target.value] === undefined) {
+      lists[formRef.target.value] = [];
+    }
+    console.log(lists);
+    const letter = {
+      id: uuid(),
+      name: checkedName,
+      text: checkedText,
+      date: new Date(),
+    };
+    lists[formRef.target.value].shift(letter);
+    setLists({ ...lists });
+    setLocalStorageItem();
+
+    // formRef.name.value = "";
+    // formRef.text.value = "";
+  };
   return (
     <StFormContainer>
       <StForm ref={formRef}>
@@ -49,14 +76,14 @@ function Form({ lists, setList }) {
             id={selectLabelId}
             defaultValue="드래곤볼"
           >
-            {options.map((item) => (
+            {character.map((item) => (
               <StInput key={uuid()} as="option" value={item}>
                 {item}
               </StInput>
             ))}
           </StInput>
         </StInputContainer>
-        <StButton>보내기</StButton>
+        <StButton onClick={checkValidForm}>보내기</StButton>
       </StForm>
     </StFormContainer>
   );

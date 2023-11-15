@@ -3,16 +3,46 @@ import {
   StFanLetterContainer,
   StFanLetterWrapper,
   StFanLetter,
+  StNothingLetter,
+  StNothingLetterParagraph,
+  StComment,
 } from "../styledComponents/StyledLetterForm";
 
-function LetterList({ list }) {
+function LetterList({ lists, tab, theme }) {
+  const listArr = lists[theme.character[tab]];
+  const doShowList = () => {
+    return listArr.map((item) => {
+      return (
+        <StFanLetter>
+          <StComment.Div>
+            <StComment.Avatar />
+          </StComment.Div>
+          <StComment.Div>
+            <StComment.Div>
+              <StComment.Author>{item.name}</StComment.Author>
+              <StComment.Date>{item.date}</StComment.Date>
+            </StComment.Div>
+            <StComment.Text>{item.text}</StComment.Text>
+          </StComment.Div>
+        </StFanLetter>
+      );
+    });
+  };
+
   return (
     <StFanLetterContainer>
-      <StFanLetterWrapper>
-        {list === undefined ? <h2>있어요</h2> : <h2>없어요</h2>}
-      </StFanLetterWrapper>
+      {listArr === undefined ? (
+        <StNothingLetter>
+          <StNothingLetterParagraph>
+            그대가 처음이네요.. <br />
+            낭만 가득한 편지한통 써보세요
+          </StNothingLetterParagraph>
+        </StNothingLetter>
+      ) : (
+        <StFanLetterWrapper>{doShowList()}</StFanLetterWrapper>
+      )}
     </StFanLetterContainer>
   );
 }
 
-export default LetterList;
+export default React.memo(LetterList);
