@@ -8,7 +8,6 @@ import theme from "./styledComponents/theme/theme";
 function App() {
   console.log("App :", "Render");
   const [lists, setLists] = useState({});
-  // const [tab, setTab] = useState(0);
 
   const getLocalStorageItem = () => {
     const getData = localStorage.getItem("Tooniverse");
