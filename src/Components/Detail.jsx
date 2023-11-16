@@ -14,7 +14,7 @@ function Detail() {
   const navigate = useNavigate();
   const editText = useRef();
   const actionsWidthData = useCustomDataActions();
-
+  console.log(member);
   const target = actionsWidthData.filteringMember(member, id);
   const onClickEditComment = () => {
     setEdit(!edit);
@@ -25,6 +25,7 @@ function Detail() {
     setEdit(!edit);
   };
   const onClickRemoveComment = () => {
+    console.log({ member, id });
     actionsWidthData.HandleEdit.useRemoveComment({ member, id });
     navigate("/");
   };

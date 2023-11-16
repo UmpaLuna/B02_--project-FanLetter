@@ -13,7 +13,6 @@ function Home() {
 
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
-
     const moveSlide = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * 5);
       for (let i = 0; i < mainRef.current.length; i++) {
