@@ -10,10 +10,12 @@ import {
   StNothingLetterParagraph,
   StComment,
 } from "../styledComponents/StyledLetterForm";
-import { useCustomContex } from "../context/ContextAPI";
-
+import { useCustomContex, useCustomTabContext } from "../context/ContextAPI";
 function LetterList() {
-  const { lists, tab, theme } = useCustomContex();
+  console.log("LetterList : ", "Render");
+  console.log("-------------------------------------------------------");
+  const { lists, theme } = useCustomContex();
+  const [tab] = useCustomTabContext();
   const listArr = lists[theme.character[tab]];
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {

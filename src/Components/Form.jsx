@@ -8,16 +8,17 @@ import {
   StInputContainer,
   StInput,
 } from "../styledComponents/StyledForm";
-import { useCustomContex } from "../context/ContextAPI";
+import { useCustomContex, useCustomTabContext } from "../context/ContextAPI";
 function Form() {
-  const { lists, setLists, setLocalStorageItem, setTab, tab, theme } =
-    useCustomContex();
+  console.log("Form : Render");
+  const { lists, setLists, setLocalStorageItem, theme } = useCustomContex();
+
+  const [tab, setTab] = useCustomTabContext();
   const character = theme.character;
   const formRef = useRef({});
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
   const selectLabelId = useId();
-  console.log("Form : Render");
 
   const controllOfTabWithinSelect = (e) => {
     setTab(e.target.value);
