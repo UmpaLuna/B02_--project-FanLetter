@@ -7,7 +7,6 @@ import {
   BsTwitter,
 } from "react-icons/bs";
 
-console.log("StyledLayout");
 export const StLayoutHeader = styled.header`
   color: #333;
 `;

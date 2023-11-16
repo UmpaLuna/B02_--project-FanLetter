@@ -5,19 +5,17 @@ import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
-import { useCustomContex, TabContextProvider } from "../context/ContextAPI";
+import { TabContextProvider, useCustomDataValue } from "../context/ContextAPI";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const { theme } = useCustomContex();
-
-  const character = theme.character;
+  const { characters } = useCustomDataValue();
 
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
 
     const moveSlide = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * 4);
+      const randomIndex = Math.floor(Math.random() * 5);
       for (let i = 0; i < mainRef.current.length; i++) {
         mainRef.current[i].style.opacity = 0;
       }
@@ -37,7 +35,7 @@ function Home() {
       {useMemo(() => {
         return (
           <StMain>
-            {character.map((url, i) => {
+            {characters.map((url, i) => {
               return (
                 <StMainDivImg
                   ref={(el) => (mainRef.current[i] = el)}
@@ -49,7 +47,7 @@ function Home() {
             })}
           </StMain>
         );
-      }, [character])}
+      }, [characters])}
 
       <TabContextProvider>
         <NavigateBar />

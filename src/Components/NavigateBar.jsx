@@ -6,15 +6,14 @@ import {
   StNavigateItem,
 } from "../styledComponents/StyledNavigate";
 import {
-  useCustomContex,
   useCustomTabActionsContext,
   useCustomTabValueContext,
 } from "../context/ContextAPI";
+import theme from "../styledComponents/theme/theme";
 
 function NavigateBar() {
   console.log("NaviageBar :", "Render");
 
-  const { theme } = useCustomContex();
   const actions = useCustomTabActionsContext();
   const tab = useCustomTabValueContext();
   return (
