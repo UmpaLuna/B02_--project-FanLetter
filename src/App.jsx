@@ -8,7 +8,7 @@ import theme from "./styledComponents/theme/theme";
 function App() {
   console.log("App :", "Render");
   const [lists, setLists] = useState({});
-  const [tab, setTab] = useState(0);
+  // const [tab, setTab] = useState(0);
 
   const getLocalStorageItem = () => {
     const getData = localStorage.getItem("Tooniverse");
@@ -32,7 +32,7 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <MockStoreContext.Provider
-          value={{ tab, setTab, setLocalStorageItem, lists, setLists, theme }}
+          value={{ setLocalStorageItem, lists, setLists, theme }}
         >
           <Router />
         </MockStoreContext.Provider>

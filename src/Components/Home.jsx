@@ -6,7 +6,7 @@ import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
-import { useCustomContex } from "../context/ContextAPI";
+import { useCustomContex, TabContextProvider } from "../context/ContextAPI";
 function Home() {
   console.log("Home :", "Render");
 
@@ -27,7 +27,7 @@ function Home() {
     }, 2000);
     // unmount
     return () => {
-      console.log("Home의 useEffect :", "unmount,clearFunction");
+      console.log("Home의  :", "unmount,clearFunction");
       clearInterval(moveSlide);
     };
   }, []);
@@ -52,9 +52,11 @@ function Home() {
           </StMain>
         );
       }, [character])}
-      <NavigateBar />
-      <Form />
-      <LetterList />
+      <TabContextProvider>
+        <NavigateBar />
+        <Form />
+        <LetterList />
+      </TabContextProvider>
     </>
   );
 }
