@@ -9,14 +9,18 @@ const LocalDataActionsContext = createContext();
 
 export function LocalDataProvider({ children }) {
   const [lists, setLists] = useState({});
+  // theme.character는 공통적으로 계속 쓰다보니 쩔수없이...
   const characters = theme.character;
   const actionsWithData = {
     utility: {
       initialSetValue(data) {
         setLists(data);
       },
-      usefindDataIndex(target, id) {
-        return lists[target].findIndex((target) => target.id === id);
+      usefindDataIndex(param) {
+        console.log(param);
+        return lists[param.member].findIndex(
+          (target) => target.id === param.id
+        );
       },
       setLocalStorageData() {
         localStorage.setItem("Tooniverse", JSON.stringify(lists));
@@ -34,30 +38,28 @@ export function LocalDataProvider({ children }) {
 
         lists[Ref.target.value].unshift(letter);
         setLists({ ...lists });
-        this.setLocalStorageData();
+        actionsWithData.utility.setLocalStorageData();
         Ref.name.value = "";
         Ref.text.value = "";
       },
       useUpdateComment(Ref, params) {
         if (Ref.current.defaultValue === Ref.current.value)
           return alert("수정안됨");
-        const targetIndex = this.utility.findDataIndex(
-          params.memeber,
-          params.id
-        );
+        const targetIndex = actionsWithData.utility.usefindDataIndex(params);
 
         lists[params.member][targetIndex].text = Ref.current.value;
         setLists((prev) => ({ ...prev }));
       },
       useRemoveComment(params) {
-        const targetIndex = this.utility.findDataIndex(
+        const targetIndex = actionsWithData.utility.usefindDataIndex(
           params.memeber,
           params.id
         );
         lists[params.member].splice(targetIndex, 1);
 
         setLists((prev) => ({ ...prev }));
-        this.setLocalStorageData();
+
+        actionsWithData.utility.setLocalStorageData();
       },
     },
     filteringMember(member, id) {
@@ -65,11 +67,11 @@ export function LocalDataProvider({ children }) {
     },
   };
   return (
-    <LocalDataValueContext value={{ lists, characters }}>
-      <LocalDataActionsContext value={actionsWithData}>
+    <LocalDataValueContext.Provider value={{ lists, characters: characters }}>
+      <LocalDataActionsContext.Provider value={actionsWithData}>
         {children}
-      </LocalDataActionsContext>
-    </LocalDataValueContext>
+      </LocalDataActionsContext.Provider>
+    </LocalDataValueContext.Provider>
   );
 }
 
@@ -101,7 +103,7 @@ export function useCustomDataActions() {
 
 const TabValueContext = createContext();
 const TabActionsContext = createContext();
-export function TabContextProvider({ children }) {
+export function TabContextProvider(props) {
   const [tab, setTab] = useState(0);
   const tabActions = {
     changeTab(arg) {
@@ -115,7 +117,7 @@ export function TabContextProvider({ children }) {
   return (
     <TabActionsContext.Provider value={tabActions}>
       <TabValueContext.Provider value={tab}>
-        {/* {children} */}
+        {props.children}
       </TabValueContext.Provider>
     </TabActionsContext.Provider>
   );
