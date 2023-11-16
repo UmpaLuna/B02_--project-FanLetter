@@ -1,12 +1,16 @@
 import React, { memo } from "react";
+import uuid from "react-uuid";
+
 import {
   StNavContainer,
   StNavigateItem,
 } from "../styledComponents/StyledNavigate";
-import uuid from "react-uuid";
+import { useCustomContex } from "../context/ContextAPI";
 
-function NavigateBar({ theme, tab, setTab }) {
+function NavigateBar() {
   console.log("NaviageBar :", "Render");
+
+  const { tab, setTab, theme } = useCustomContex();
   const handleClickTab = (idx) => {
     setTab(idx);
   };

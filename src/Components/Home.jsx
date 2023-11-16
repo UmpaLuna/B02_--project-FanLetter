@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
+
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
-import { useNavigate } from "react-router-dom";
-
-function Home({ theme, lists, setLists, setLocalStorageItem }) {
+import { useCustomContex } from "../context/ContextAPI";
+function Home() {
   console.log("Home :", "Render");
+
   const mainRef = useRef([]);
+  const { theme } = useCustomContex();
+
   const character = theme.character;
-  const [tab, setTab] = useState(0);
-  const navigate = useNavigate();
+
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
 
@@ -49,16 +52,9 @@ function Home({ theme, lists, setLists, setLocalStorageItem }) {
           </StMain>
         );
       }, [character])}
-      <NavigateBar theme={theme} tab={tab} setTab={setTab} />
-      <Form
-        theme={theme}
-        lists={lists}
-        setLists={setLists}
-        setTab={setTab}
-        tab={tab}
-        setLocalStorageItem={setLocalStorageItem}
-      />
-      <LetterList navigate={navigate} lists={lists} theme={theme} tab={tab} />
+      <NavigateBar />
+      <Form />
+      <LetterList />
     </>
   );
 }
