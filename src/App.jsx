@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import GlobalStyle from "./styledComponents/GlobalStyle.js";
 import Router from "./shared/Router.jsx";
+import { MockStoreContext } from "./context/ContextAPI.js";
+import { ThemeProvider } from "styled-components";
 
+import theme from "./styledComponents/theme/theme";
 function App() {
   console.log("App :", "Render");
   const [lists, setLists] = useState({});
@@ -13,30 +16,27 @@ function App() {
     return parseData;
   };
 
-  const setLocalStorageItem = useCallback(() => {
-    return localStorage.setItem("Tooniverse", JSON.stringify(lists));
-  }, [lists]);
+  const setLocalStorageItem = () => {
+    localStorage.setItem("Tooniverse", JSON.stringify(lists));
+  };
 
   useEffect(() => {
     console.log("useEffect :", "render");
     const getItem = getLocalStorageItem();
-    console.log(getItem);
-    if (getItem === undefined || getItem === null) return setLocalStorageItem();
-    else {
-      return setLists(getItem);
-    }
+    if (getItem === null) return setLocalStorageItem();
+    setLists(getItem);
   }, []);
-  console.log(lists);
+
   return (
     <>
       <GlobalStyle />
-      <Router
-        lists={lists}
-        setLists={setLists}
-        tab={tab}
-        setTab={setTab}
-        setLocalStorageItem={setLocalStorageItem}
-      />
+      <ThemeProvider theme={theme}>
+        <MockStoreContext.Provider
+          value={{ tab, setTab, setLocalStorageItem, lists, setLists, theme }}
+        >
+          <Router />
+        </MockStoreContext.Provider>
+      </ThemeProvider>
     </>
   );
 }

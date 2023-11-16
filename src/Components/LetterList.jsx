@@ -1,4 +1,7 @@
 import React from "react";
+import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
+
 import {
   StFanLetterContainer,
   StFanLetterWrapper,
@@ -7,14 +10,16 @@ import {
   StNothingLetterParagraph,
   StComment,
 } from "../styledComponents/StyledLetterForm";
-import uuid from "react-uuid";
+import { useCustomContex } from "../context/ContextAPI";
 
-function LetterList({ lists, tab, theme, navigate }) {
+function LetterList() {
+  const { lists, tab, theme } = useCustomContex();
   const listArr = lists[theme.character[tab]];
+  const navigate = useNavigate();
   const navigateDetailPage = (id) => {
-    console.log(id);
     navigate(`/detail/${id}`);
   };
+
   const doShowList = () => {
     return listArr.map((item) => {
       return (

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   StDetailContainer,
@@ -6,12 +6,16 @@ import {
 } from "../styledComponents/StyledDetail";
 import { StInput } from "../styledComponents/StyledForm";
 import { StComment as StDetail } from "../styledComponents/StyledLetterForm";
-function Detail({ lists, setLists }) {
+import { useCustomContex } from "../context/ContextAPI";
+
+function Detail() {
+  const { lists, setLists, setLocalStorageItem } = useCustomContex();
   const { member, id } = useParams();
-  const target = lists[member].filter((el) => el.id === id);
   const [edit, setEdit] = useState(false);
-  const editText = useRef();
   const navigate = useNavigate();
+  const editText = useRef();
+
+  const target = lists[member].filter((el) => el.id === id);
   const onClickEditComment = () => {
     setEdit(!edit);
   };
@@ -31,6 +35,7 @@ function Detail({ lists, setLists }) {
     );
     lists[member].splice(findedItemIndex, 1);
     setLists((prev) => ({ ...prev }));
+    setLocalStorageItem();
     navigate("/");
   };
   console.log("Detail :", "Render");

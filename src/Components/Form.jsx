@@ -1,4 +1,5 @@
 import React, { useRef, useId, memo } from "react";
+import uuid from "react-uuid";
 import {
   StForm,
   StFormContainer,
@@ -7,9 +8,10 @@ import {
   StInputContainer,
   StInput,
 } from "../styledComponents/StyledForm";
-import uuid from "react-uuid";
-
-function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
+import { useCustomContex } from "../context/ContextAPI";
+function Form() {
+  const { lists, setLists, setLocalStorageItem, setTab, tab, theme } =
+    useCustomContex();
   const character = theme.character;
   const formRef = useRef({});
   const inputLabelNameId = useId();
@@ -81,7 +83,7 @@ function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
             onChange={controllOfTabWithinSelect}
           >
             {character.map((item, i) => (
-              <StInput key={uuid()} as="option" value={i}>
+              <StInput key={uuid()} as="option" value={item}>
                 {item}
               </StInput>
             ))}
