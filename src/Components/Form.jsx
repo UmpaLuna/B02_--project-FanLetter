@@ -8,21 +8,23 @@ import {
   StInputContainer,
   StInput,
 } from "../styledComponents/StyledForm";
-import { useCustomContex, useCustomTabContext } from "../context/ContextAPI";
+import {
+  useCustomContex,
+  useCustomTabValueContext,
+  useCustomTabActionsContext,
+} from "../context/ContextAPI";
 function Form() {
   console.log("Form : Render");
   const { lists, setLists, setLocalStorageItem, theme } = useCustomContex();
 
-  const [tab, setTab] = useCustomTabContext();
+  const tab = useCustomTabValueContext();
+  const actions = useCustomTabActionsContext();
   const character = theme.character;
   const formRef = useRef({});
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
   const selectLabelId = useId();
 
-  const controllOfTabWithinSelect = (e) => {
-    setTab(e.target.value);
-  };
   const checkValidForm = () => {
     const name = formRef.name;
     const text = formRef.text;
@@ -81,7 +83,7 @@ function Form() {
             as="select"
             id={selectLabelId}
             value={tab}
-            onChange={controllOfTabWithinSelect}
+            onChange={actions.eventChangeTab}
           >
             {character.map((item, i) => (
               <StInput key={uuid()} as="option" value={item}>

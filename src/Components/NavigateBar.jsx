@@ -5,24 +5,25 @@ import {
   StNavContainer,
   StNavigateItem,
 } from "../styledComponents/StyledNavigate";
-import { useCustomContex, useCustomTabContext } from "../context/ContextAPI";
+import {
+  useCustomContex,
+  useCustomTabActionsContext,
+  useCustomTabValueContext,
+} from "../context/ContextAPI";
 
 function NavigateBar() {
   console.log("NaviageBar :", "Render");
 
   const { theme } = useCustomContex();
-  const [tab, setTab] = useCustomTabContext();
-  const handleClickTab = (idx) => {
-    setTab(idx);
-  };
-
+  const actions = useCustomTabActionsContext();
+  const tab = useCustomTabValueContext();
   return (
     <StNavContainer>
       {Object.keys(theme.imgSrc.mainImg).map((item, idx) => {
         return (
           <StNavigateItem
             onClick={() => {
-              handleClickTab(idx);
+              actions.changeTab(idx);
             }}
             $isActive={tab}
             $idx={idx}

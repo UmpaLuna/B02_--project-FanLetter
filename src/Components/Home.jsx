@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import uuid from "react-uuid";
-import { useNavigate } from "react-router-dom";
 
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "./Form";
@@ -9,7 +8,6 @@ import NavigateBar from "./NavigateBar";
 import { useCustomContex, TabContextProvider } from "../context/ContextAPI";
 function Home() {
   console.log("Home :", "Render");
-
   const mainRef = useRef([]);
   const { theme } = useCustomContex();
 
@@ -52,6 +50,7 @@ function Home() {
           </StMain>
         );
       }, [character])}
+
       <TabContextProvider>
         <NavigateBar />
         <Form />
