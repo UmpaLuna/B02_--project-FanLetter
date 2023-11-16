@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import GlobalStyle from "./styledComponents/GlobalStyle.js";
 import Router from "./shared/Router.jsx";
 
@@ -13,20 +13,20 @@ function App() {
     return parseData;
   };
 
-  const setLocalStorageItem = () => {
-    localStorage.setItem("Tooniverse", JSON.stringify(lists));
-  };
+  const setLocalStorageItem = useCallback(() => {
+    return localStorage.setItem("Tooniverse", JSON.stringify(lists));
+  }, [lists]);
 
   useEffect(() => {
     console.log("useEffect :", "render");
     const getItem = getLocalStorageItem();
-
-    if (getItem === undefined || getItem === null) setLocalStorageItem();
+    console.log(getItem);
+    if (getItem === undefined || getItem === null) return setLocalStorageItem();
     else {
-      setLists(getLocalStorageItem());
+      return setLists(getItem);
     }
   }, []);
-
+  console.log(lists);
   return (
     <>
       <GlobalStyle />

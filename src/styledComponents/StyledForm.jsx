@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const StFormContainer = styled.div`
   margin: 0 auto;
@@ -15,7 +15,7 @@ export const StForm = styled.form`
   margin: 2rem 0;
   border-radius: 17px;
 `;
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   width: 80px;
   height: 26px;
   padding: 4px 6px;
@@ -64,12 +64,14 @@ export const StInput = styled.input.attrs((props) => ({
   ${(props) =>
     (props.as === "textarea" &&
       `
+      width: 100%;
       height: 120px;
       resize: none; `) ||
     (props.as === "select" &&
       `
       flex-basis: 120px;
       `)}
+  ${(props) => props.$detail && "width: 100%; "}
 `;
 export const StButton = styled(StyledButton).attrs({
   type: "button",

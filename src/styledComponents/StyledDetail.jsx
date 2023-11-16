@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StComment } from "./StyledLetterForm";
+import { StyledButton } from "./StyledForm";
 export const StDetailContainer = styled.div`
   width: 400px;
   margin: 60px auto;
@@ -21,4 +21,27 @@ export const StDetailContainer = styled.div`
     padding: 0.5rem;
   }
 `;
-export const StDetail = { ...StComment };
+export const StEditButton = {
+  Edit: styled(StyledButton)`
+    background-color: #fff;
+    &:hover {
+      background-color: #6da36d;
+    }
+  `,
+  Update: styled(StyledButton)`
+    display: inline-block;
+    margin-top: 12px;
+    background-color: #000;
+    color: #fff;
+  `,
+  Remove: styled(StyledButton)`
+    background-color: #fc4f4f;
+    border: 1px solid transparent;
+    margin-left: 12px;
+    color: #fff;
+    &:hover {
+      background-color: #fff;
+      color: #fc4f4f;
+    }
+  `,
+};

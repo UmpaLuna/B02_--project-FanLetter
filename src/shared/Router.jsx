@@ -7,7 +7,6 @@ import theme from "../styledComponents/theme/theme";
 
 const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
   console.log("Router :", "Render");
-
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -32,6 +31,7 @@ const Router = ({ lists, setLists, tab, setTab, setLocalStorageItem }) => {
                 <Detail
                   lists={lists}
                   setLocalStorageItem={setLocalStorageItem}
+                  setLists={setLists}
                 />
               }
             />
