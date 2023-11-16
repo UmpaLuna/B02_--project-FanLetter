@@ -20,6 +20,7 @@ function Detail() {
     setEdit(!edit);
   };
   const onClickUpdateComment = () => {
+    console.log({ member, id });
     actionsWidthData.HandleEdit.useUpdateComment(editText, { member, id });
     setEdit(!edit);
   };

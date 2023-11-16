@@ -14,7 +14,7 @@ import theme from "../styledComponents/theme/theme";
 function NavigateBar() {
   console.log("NaviageBar :", "Render");
 
-  const actions = useCustomTabActionsContext();
+  const tabActions = useCustomTabActionsContext();
   const tab = useCustomTabValueContext();
   return (
     <StNavContainer>
@@ -22,7 +22,7 @@ function NavigateBar() {
         return (
           <StNavigateItem
             onClick={() => {
-              actions.changeTab(idx);
+              tabActions.changeTab(idx);
             }}
             $isActive={tab}
             $idx={idx}
