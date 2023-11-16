@@ -51,10 +51,8 @@ export function LocalDataProvider({ children }) {
         setLists((prev) => ({ ...prev }));
       },
       useRemoveComment(params) {
-        const targetIndex = actionsWithData.utility.usefindDataIndex(
-          params.memeber,
-          params.id
-        );
+        console.log(params);
+        const targetIndex = actionsWithData.utility.usefindDataIndex(params);
         lists[params.member].splice(targetIndex, 1);
 
         setLists((prev) => ({ ...prev }));

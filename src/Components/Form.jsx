@@ -72,7 +72,6 @@ function Form() {
             ref={(ref) => (formRef["target"] = ref)}
             as="select"
             id={selectLabelId}
-            value={tab}
             onChange={tabActions.eventChangeTab}
           >
             {characters.map((item, i) => (
