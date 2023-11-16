@@ -33,7 +33,6 @@ function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
     if (lists[formRef.target.value] === undefined) {
       lists[formRef.target.value] = [];
     }
-    console.log(lists);
     const letter = {
       id: uuid(),
       name: checkedName.value,
@@ -44,7 +43,6 @@ function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
     lists[formRef.target.value].unshift(letter);
     setLists({ ...lists });
     setLocalStorageItem();
-    console.log(lists);
     checkedName.value = "";
     checkedText.value = "";
   };
@@ -83,7 +81,7 @@ function Form({ theme, lists, setLists, setLocalStorageItem, setTab, tab }) {
             onChange={controllOfTabWithinSelect}
           >
             {character.map((item, i) => (
-              <StInput key={uuid()} as="option" value={item}>
+              <StInput key={uuid()} as="option" value={i}>
                 {item}
               </StInput>
             ))}

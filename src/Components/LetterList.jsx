@@ -22,10 +22,10 @@ function LetterList({ lists, tab, theme, navigate }) {
           key={uuid()}
           onClick={() => navigateDetailPage(`${item.target}/${item.id}`)}
         >
-          <StComment.Div>
+          <StComment.Div $img>
             <StComment.Avatar />
           </StComment.Div>
-          <StComment.Div>
+          <StComment.Div $paragraph>
             <StComment.Div>
               <StComment.Author>{item.name}</StComment.Author>
               <StComment.Date>{item.date}</StComment.Date>

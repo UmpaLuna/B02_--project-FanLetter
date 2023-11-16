@@ -15,14 +15,18 @@ export const StFanLetterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: -15px;
+  gap: 10px;
   text-align: center;
   justify-content: center;
+  ${({ theme: { mediaQuery } }) => mediaQuery.lg`
+   justify-content:flex-start;
+  `};
 `;
 
 export const StFanLetter = styled.div`
   flex: 0 0 auto;
-  width: calc(25% - (calc(15 / 3) * 2));
-  margin: 0 calc(15 / 3) rem;
+  width: 30%;
+  margin: 0 0.5rem;
   padding: 0.5rem 2rem 1.5rem 2rem;
   border-radius: 1rem;
   display: flex;
@@ -48,6 +52,7 @@ export const StComment = {
     height: 40px;
     object-fit: cover;
     border-radius: 50%;
+    ${(props) => props.$img && `width:`}
   `,
   Author: styled.p`
     font-size: 1.8rem;
@@ -58,10 +63,25 @@ export const StComment = {
     font-size: 1.2rem;
   `,
   Text: styled.p`
+    width: 100%;
     padding: 1rem 0;
     font-size: 1.6rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    ${(props) =>
+      props.$detail &&
+      `
+      height :120px;
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip ;
+    word-wrap : break-word;
+    `}
   `,
-  Div: styled.div``,
+  Div: styled.div`
+    ${(props) => props.$paragraph && `width: 70%`}
+  `,
 };
 
 export const StNothingLetter = styled.div`
