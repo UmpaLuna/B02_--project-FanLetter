@@ -9,17 +9,18 @@ import {
   StInput,
 } from "../styledComponents/StyledForm";
 import {
-  useCustomContex,
   useCustomTabValueContext,
   useCustomTabActionsContext,
+  useCustomDataValue,
+  useCustomDataActions,
 } from "../context/ContextAPI";
 function Form() {
   console.log("Form : Render");
-  const { lists, setLists, setLocalStorageItem, theme } = useCustomContex();
 
   const tab = useCustomTabValueContext();
-  const actions = useCustomTabActionsContext();
-  const character = theme.character;
+  const tabActions = useCustomTabActionsContext();
+  const { lists, characters } = useCustomDataValue();
+  const actionsWidthData = useCustomDataActions();
   const formRef = useRef({});
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
@@ -34,22 +35,11 @@ function Form() {
 
     setFanLetterData(name, text);
   };
-  const setFanLetterData = (checkedName, checkedText) => {
+  const setFanLetterData = () => {
     if (lists[formRef.target.value] === undefined) {
       lists[formRef.target.value] = [];
     }
-    const letter = {
-      id: uuid(),
-      name: checkedName.value,
-      text: checkedText.value,
-      date: new Date().toString(),
-      target: formRef.target.value,
-    };
-    lists[formRef.target.value].unshift(letter);
-    setLists({ ...lists });
-    setLocalStorageItem();
-    checkedName.value = "";
-    checkedText.value = "";
+    actionsWidthData.HandleEdit.useUpdateLists(formRef);
   };
   return (
     <StFormContainer>
@@ -83,9 +73,9 @@ function Form() {
             as="select"
             id={selectLabelId}
             value={tab}
-            onChange={actions.eventChangeTab}
+            onChange={tabActions.eventChangeTab}
           >
-            {character.map((item, i) => (
+            {characters.map((item, i) => (
               <StInput key={uuid()} as="option" value={item}>
                 {item}
               </StInput>

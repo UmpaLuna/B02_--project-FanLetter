@@ -6,36 +6,25 @@ import {
 } from "../styledComponents/StyledDetail";
 import { StInput } from "../styledComponents/StyledForm";
 import { StComment as StDetail } from "../styledComponents/StyledLetterForm";
-import { useCustomContex } from "../context/ContextAPI";
+import { useCustomDataActions } from "../context/ContextAPI";
 
 function Detail() {
-  const { lists, setLists, setLocalStorageItem } = useCustomContex();
   const { member, id } = useParams();
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
   const editText = useRef();
+  const actionsWidthData = useCustomDataActions();
 
-  const target = lists[member].filter((el) => el.id === id);
+  const target = actionsWidthData.filteringMember(member, id);
   const onClickEditComment = () => {
     setEdit(!edit);
   };
   const onClickUpdateComment = () => {
-    if (editText.current.defaultValue === editText.current.value)
-      return alert("수정안됨");
-    const findedItemIndex = lists[member].findIndex(
-      (finded) => finded.id === id
-    );
-    lists[member][findedItemIndex].text = editText.current.value;
-    setLists((prev) => ({ ...prev }));
+    actionsWidthData.HandleEdit.useUpdateComment(editText, { member, id });
     setEdit(!edit);
   };
   const onClickRemoveComment = () => {
-    const findedItemIndex = lists[member].findIndex(
-      (finded) => finded.id === id
-    );
-    lists[member].splice(findedItemIndex, 1);
-    setLists((prev) => ({ ...prev }));
-    setLocalStorageItem();
+    actionsWidthData.HandleEdit.useRemoveComment({ member, id });
     navigate("/");
   };
   console.log("Detail :", "Render");

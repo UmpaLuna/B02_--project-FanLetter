@@ -11,16 +11,16 @@ import {
   StComment,
 } from "../styledComponents/StyledLetterForm";
 import {
-  useCustomContex,
+  useCustomDataValue,
   useCustomTabValueContext,
 } from "../context/ContextAPI";
 
 function LetterList() {
   console.log("LetterList : ", "Render");
 
-  const { lists, theme } = useCustomContex();
+  const { lists, characters } = useCustomDataValue();
   const tab = useCustomTabValueContext();
-  const listArr = lists[theme.character[tab]];
+  const listArr = lists[characters[tab]];
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {
     navigate(`/detail/${id}`);

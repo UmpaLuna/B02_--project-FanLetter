@@ -1,72 +1,146 @@
 import { createContext, useContext, useState } from "react";
+import uuid from "react-uuid";
+import theme from "../styledComponents/theme/theme";
 
+// LocalDataContextAPI
 
-export const MockStoreContext = createContext(null);
+const LocalDataValueContext = createContext();
+const LocalDataActionsContext = createContext();
 
-export function useCustomContex(){
-    const value = useContext(MockStoreContext);
-    if(value===undefined) throw new Error("useCustomContext should be used within MockStoreContext.Provider!!!")
-    return value;
+export function LocalDataProvider({ children }) {
+  const [lists, setLists] = useState({});
+  const characters = theme.character;
+  const actionsWithData = {
+    utility: {
+      initialSetValue(data) {
+        setLists(data);
+      },
+      usefindDataIndex(target, id) {
+        return lists[target].findIndex((target) => target.id === id);
+      },
+      setLocalStorageData() {
+        localStorage.setItem("Tooniverse", JSON.stringify(lists));
+      },
+    },
+    HandleEdit: {
+      useUpdateLists(Ref) {
+        const letter = {
+          id: uuid(),
+          name: Ref.name.value,
+          text: Ref.text.value,
+          date: new Date().toString(),
+          target: Ref.target.value,
+        };
+
+        lists[Ref.target.value].unshift(letter);
+        setLists({ ...lists });
+        this.setLocalStorageData();
+        Ref.name.value = "";
+        Ref.text.value = "";
+      },
+      useUpdateComment(Ref, params) {
+        if (Ref.current.defaultValue === Ref.current.value)
+          return alert("수정안됨");
+        const targetIndex = this.utility.findDataIndex(
+          params.memeber,
+          params.id
+        );
+
+        lists[params.member][targetIndex].text = Ref.current.value;
+        setLists((prev) => ({ ...prev }));
+      },
+      useRemoveComment(params) {
+        const targetIndex = this.utility.findDataIndex(
+          params.memeber,
+          params.id
+        );
+        lists[params.member].splice(targetIndex, 1);
+
+        setLists((prev) => ({ ...prev }));
+        this.setLocalStorageData();
+      },
+    },
+    filteringMember(member, id) {
+      return lists[member].filter((target) => target.id === id);
+    },
+  };
+  return (
+    <LocalDataValueContext value={{ lists, characters }}>
+      <LocalDataActionsContext value={actionsWithData}>
+        {children}
+      </LocalDataActionsContext>
+    </LocalDataValueContext>
+  );
 }
 
+export function useCustomDataValue() {
+  try {
+    const value = useContext(LocalDataValueContext);
+    if (value === undefined) {
+      throw new Error("Please being used within LocalDataValueContext");
+    }
+    return value;
+  } catch (e) {
+    alert(e);
+  }
+}
 
+export function useCustomDataActions() {
+  try {
+    const value = useContext(LocalDataActionsContext);
+    if (value === undefined) {
+      throw new Error("please being used within LocalDataActionsContext");
+    }
+    return value;
+  } catch (e) {
+    alert(e);
+  }
+}
 
-
-
-//  const TabContext = createContext();
-//  export function TabContextProvider({children}){
-//     const tab = useState(0);
-//     return (
-//         <TabContext.Provider value={tab}>
-//             {/* children이 없으면 UI 내용물 안보임 */}
-//             {children};
-//         </TabContext.Provider>
-//     )
-//  }
-// export function useCustomTabContext(){
-//     const value = useContext(TabContext)
-//     if(value===undefined){
-//         throw new Error("Please being used within TabContext");
-//     }
-
-//     return value
-// }
-
+// tabCustomContextAPI
 
 const TabValueContext = createContext();
 const TabActionsContext = createContext();
-export function TabContextProvider({children}){
-    const [tab,setTab] = useState(0);
-    const actions = {
-        changeTab(arg){
-        setTab(arg)
-        },
-        eventChangeTab(e){
-            setTab(e.target.value)
-        },
-    }
+export function TabContextProvider({ children }) {
+  const [tab, setTab] = useState(0);
+  const tabActions = {
+    changeTab(arg) {
+      setTab(arg);
+    },
+    eventChangeTab(e) {
+      setTab(e.target.value);
+    },
+  };
 
-    return (
-        <TabActionsContext.Provider value={actions}>
-            <TabValueContext.Provider value={tab}>
-                {children}
-            </TabValueContext.Provider>
-        </TabActionsContext.Provider>   
-    )
+  return (
+    <TabActionsContext.Provider value={tabActions}>
+      <TabValueContext.Provider value={tab}>
+        {/* {children} */}
+      </TabValueContext.Provider>
+    </TabActionsContext.Provider>
+  );
 }
 
-export function useCustomTabValueContext(){
+export function useCustomTabValueContext() {
+  try {
     const value = useContext(TabValueContext);
-    if(value===undefined){
-        throw new Error("Please being used within TabValueContext")
+    if (value === undefined) {
+      throw new Error("Please being used within TabValueContext");
     }
-    return value
+    return value;
+  } catch (e) {
+    alert(e);
+  }
 }
 
-export function useCustomTabActionsContext(){
+export function useCustomTabActionsContext() {
+  try {
     const value = useContext(TabActionsContext);
-    if(value === undefined){
-        throw new Error("Please being used within TabActionsContext")
+    if (value === undefined) {
+      throw new Error("Please being used within TabActionsContext");
     }
-    return value
+    return value;
+  } catch (e) {
+    alert(e);
+  }
 }

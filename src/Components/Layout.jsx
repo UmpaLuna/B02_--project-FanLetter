@@ -1,5 +1,6 @@
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import uuid from "react-uuid";
 import {
   StLayoutHeader,
   StLayoutLogoContainer,
@@ -30,17 +31,32 @@ import {
   StLayoutFooLogoYoutube,
   StLayoutFooLogoTwitter,
 } from "../styledComponents/StyledLayout";
+import {
+  useCustomDataActions,
+  useCustomDataValue,
+} from "../context/ContextAPI";
 
-import uuid from "react-uuid";
 function Layout({ children }) {
-  const titleArr = ["Dragon볼", "Di지몬", "내 마음체크", "루팡소녀"];
+  const navigate = useNavigate();
+  const actionsWithData = useCustomDataActions();
+  const { characters } = useCustomDataValue();
   const fooTitleArr = [
     "모든 저작권은 Tooniverse에게..",
     "손오공 언제 철들래;;; 치치에게 감사해라",
     "어쨋거나 내 유년시절 그대들에게 감사",
   ];
-  const navigate = useNavigate();
+  const getLocalStorageItem = () => {
+    const getData = localStorage.getItem("Tooniverse");
+    const parseData = JSON.parse(getData);
+    return parseData;
+  };
+  useEffect(() => {
+    console.log("Layout useEffect :", "render");
+    const getItem = getLocalStorageItem();
+    if (getItem === null) return actionsWithData.utility.setLocalStorageData();
 
+    actionsWithData.utility.initialSetValue(getItem);
+  }, []);
   return (
     <>
       <StLayoutHeader>
@@ -50,7 +66,7 @@ function Layout({ children }) {
           </StLayoutLogoContainer>
           <StLayoutBox>
             <StLayoutSearchIcon />
-            {titleArr.map((text) => (
+            {characters.map((text) => (
               <StLayoutItem key={uuid()}>{text}</StLayoutItem>
             ))}
           </StLayoutBox>
@@ -159,3 +175,7 @@ function Layout({ children }) {
 }
 
 export default Layout;
+
+// const setLocalStorageItem = () => {
+//   localStorage.setItem("Tooniverse", JSON.stringify(lists));
+// };
