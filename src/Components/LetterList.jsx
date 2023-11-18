@@ -14,13 +14,18 @@ import {
   useCustomDataValue,
   useCustomTabValueContext,
 } from "../context/ContextAPI";
+import { useSelector } from "react-redux";
 
 function LetterList() {
   console.log("LetterList : ", "Render");
+  //Reducer
+  const tabReducer = useSelector((state) => state);
 
+  // ContextAPI
   const { lists, characters } = useCustomDataValue();
   const tab = useCustomTabValueContext();
-  const listArr = lists[characters[tab]];
+  const listArr = lists[characters[tabReducer]];
+
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
