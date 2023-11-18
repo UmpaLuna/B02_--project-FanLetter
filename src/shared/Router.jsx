@@ -9,15 +9,13 @@ const Router = () => {
 
   return (
     <BrowserRouter>
-      <LocalDataProvider>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path={`detail/:member/:id`} element={<Detail />} />
-            <Route path="*" element={<h1>404 찾을수 없으셈</h1>} />
-          </Routes>
-        </Layout>
-      </LocalDataProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path={`detail/:member/:id`} element={<Detail />} />
+          <Route path="*" element={<h1>404 찾을수 없으셈</h1>} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };

@@ -35,11 +35,21 @@ import {
   useCustomDataActions,
   useCustomDataValue,
 } from "../context/ContextAPI";
-
+import theme from "../styledComponents/theme/theme";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setLocalStorageData,
+  setInitialData,
+} from "../redux/modules/fanLetterDataReducer";
 function Layout({ children }) {
   const navigate = useNavigate();
-  const actionsWithData = useCustomDataActions();
-  const { characters } = useCustomDataValue();
+  // ContextAPI
+  // const actionsWithData = useCustomDataActions();
+
+  //Reducer
+
+  const dispatch = useDispatch();
+  const characters = theme.character;
   const fooTitleArr = [
     "모든 저작권은 Tooniverse에게..",
     "손오공 언제 철들래;;; 치치에게 감사해라",
@@ -53,9 +63,13 @@ function Layout({ children }) {
   useEffect(() => {
     console.log("Layout useEffect :", "render");
     const getItem = getLocalStorageItem();
-    if (getItem === null) return actionsWithData.utility.setLocalStorageData();
+    console.log(getItem);
+    if (getItem === null)
+      //return actionsWithData.utility.setLocalStorageData();
+      return dispatch(setLocalStorageData());
 
-    actionsWithData.utility.initialSetValue(getItem);
+    // actionsWithData.utility.initialSetValue(getItem);
+    dispatch(setInitialData(getItem));
   }, []);
   return (
     <>

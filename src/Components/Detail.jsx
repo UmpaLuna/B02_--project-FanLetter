@@ -7,24 +7,45 @@ import {
 import { StInput } from "../styledComponents/StyledForm";
 import { StComment as StDetail } from "../styledComponents/StyledLetterForm";
 import { useCustomDataActions } from "../context/ContextAPI";
-
+import {
+  editComment,
+  removeComment,
+  findDataIndex,
+} from "../redux/modules/fanLetterDataReducer";
+import { useDispatch, useSelector } from "react-redux";
 function Detail() {
   const { member, id } = useParams();
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
   const editText = useRef();
-  const actionsWidthData = useCustomDataActions();
+  // filteringMember 함수는 refactoring 할 때 localData객체 만들고 거기에 utility로 넣자
 
-  const target = actionsWidthData.filteringMember(member, id);
+  //ContextAPI
+  //const actionsWidthData = useCustomDataActions();
+  // const target = actionsWidthData.filteringMember(member, id);
+
+  //Reducer
+  const dispatch = useDispatch();
+  const { fanLetterData } = useSelector((state) => state);
+  function filteringMember(member, id) {
+    return fanLetterData[member].filter((target) => target.id === id);
+  }
+  const target = filteringMember(member, id);
+
   const onClickEditComment = () => {
     setEdit(!edit);
   };
   const onClickUpdateComment = () => {
-    actionsWidthData.HandleEdit.useUpdateComment(editText, { member, id });
+    // actionsWidthData.HandleEdit.useUpdateComment(editText, { member, id });
+    if (editText.current.defaultValue === editText.current.value)
+      return alert("수정이 안되었는디용");
+    dispatch(editComment({ editText, member, id }));
+
     setEdit(!edit);
   };
   const onClickRemoveComment = () => {
-    actionsWidthData.HandleEdit.useRemoveComment({ member, id });
+    // actionsWidthData.HandleEdit.useRemoveComment({ member, id });
+    dispatch(removeComment({ member, id }));
     navigate("/");
   };
   console.log("Detail :", "Render");
