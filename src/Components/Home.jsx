@@ -48,11 +48,16 @@ function Home() {
         );
       }, [characters])}
 
-      <TabContextProvider>
+      {/* <TabContextProvider>
         <NavigateBar />
         <Form />
         <LetterList />
-      </TabContextProvider>
+      </TabContextProvider> */}
+
+      {/* Reducer */}
+      <NavigateBar />
+      <Form />
+      <LetterList />
     </>
   );
 }

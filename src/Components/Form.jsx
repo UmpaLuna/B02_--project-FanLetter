@@ -13,12 +13,20 @@ import {
   useCustomDataValue,
   useCustomDataActions,
 } from "../context/ContextAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { handleTabWithPayload } from "../reudx/modules/tabReducer";
 function Form() {
   console.log("Form : Render");
 
+  // ContextAPI
+  const tab = useCustomTabValueContext();
   const tabActions = useCustomTabActionsContext();
   const { lists, characters } = useCustomDataValue();
   const actionsWidthData = useCustomDataActions();
+
+  // Reducer
+  const dispatch = useDispatch();
+
   const formRef = useRef({});
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
@@ -70,7 +78,10 @@ function Form() {
             ref={(ref) => (formRef["target"] = ref)}
             as="select"
             id={selectLabelId}
-            onChange={tabActions.eventChangeTab}
+            onChange={
+              //tabActions.eventChangeTab
+              dispatch(handleTabWithPayload)
+            }
           >
             {characters.map((item, i) => (
               <StInput key={uuid()} as="option" value={item}>
