@@ -9,7 +9,6 @@ import {
   StInput,
 } from "../styledComponents/StyledForm";
 import {
-  useCustomTabValueContext,
   useCustomTabActionsContext,
   useCustomDataValue,
   useCustomDataActions,
@@ -17,7 +16,6 @@ import {
 function Form() {
   console.log("Form : Render");
 
-  const tab = useCustomTabValueContext();
   const tabActions = useCustomTabActionsContext();
   const { lists, characters } = useCustomDataValue();
   const actionsWidthData = useCustomDataActions();

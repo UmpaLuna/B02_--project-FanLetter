@@ -26,7 +26,7 @@ function LetterList() {
     navigate(`/detail/${id}`);
   };
 
-  const doShowList = () => {
+  const DoShowList = () => {
     return listArr.map((item) => {
       return (
         <StFanLetter
@@ -58,7 +58,7 @@ function LetterList() {
           </StNothingLetterParagraph>
         </StNothingLetter>
       ) : (
-        <StFanLetterWrapper>{doShowList()}</StFanLetterWrapper>
+        <StFanLetterWrapper>{DoShowList()}</StFanLetterWrapper>
       )}
     </StFanLetterContainer>
   );

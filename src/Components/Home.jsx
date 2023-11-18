@@ -20,7 +20,7 @@ function Home() {
       }
       mainRef.current[randomIndex].style.opacity = 1;
     }, 2000);
-    // unmount
+
     return () => {
       console.log("Home의  :", "unmount,clearFunction");
       clearInterval(moveSlide);
