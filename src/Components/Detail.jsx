@@ -14,18 +14,16 @@ function Detail() {
   const navigate = useNavigate();
   const editText = useRef();
   const actionsWidthData = useCustomDataActions();
-  console.log(member);
+
   const target = actionsWidthData.filteringMember(member, id);
   const onClickEditComment = () => {
     setEdit(!edit);
   };
   const onClickUpdateComment = () => {
-    console.log({ member, id });
     actionsWidthData.HandleEdit.useUpdateComment(editText, { member, id });
     setEdit(!edit);
   };
   const onClickRemoveComment = () => {
-    console.log({ member, id });
     actionsWidthData.HandleEdit.useRemoveComment({ member, id });
     navigate("/");
   };
