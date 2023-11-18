@@ -31,20 +31,15 @@ import {
   StLayoutFooLogoYoutube,
   StLayoutFooLogoTwitter,
 } from "../styledComponents/StyledLayout";
-import {
-  useCustomDataActions,
-  useCustomDataValue,
-} from "../context/ContextAPI";
+
 import theme from "../styledComponents/theme/theme";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setLocalStorageData,
   setInitialData,
 } from "../redux/modules/fanLetterDataReducer";
 function Layout({ children }) {
   const navigate = useNavigate();
-  // ContextAPI
-  // const actionsWithData = useCustomDataActions();
 
   //Reducer
 
@@ -64,11 +59,8 @@ function Layout({ children }) {
     console.log("Layout useEffect :", "render");
     const getItem = getLocalStorageItem();
     console.log(getItem);
-    if (getItem === null)
-      //return actionsWithData.utility.setLocalStorageData();
-      return dispatch(setLocalStorageData());
+    if (getItem === null) return dispatch(setLocalStorageData());
 
-    // actionsWithData.utility.initialSetValue(getItem);
     dispatch(setInitialData(getItem));
   }, []);
   return (
