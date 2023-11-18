@@ -6,10 +6,11 @@ import Form from "./Form";
 import LetterList from "./LetterList";
 import NavigateBar from "./NavigateBar";
 import { TabContextProvider, useCustomDataValue } from "../context/ContextAPI";
+import theme from "../styledComponents/theme/theme";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const { characters } = useCustomDataValue();
+  const characters = theme.character;
 
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");

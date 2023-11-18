@@ -14,20 +14,26 @@ import {
   useCustomDataActions,
 } from "../context/ContextAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { handleTabWithPayload } from "../reudx/modules/tabReducer";
+import { handleTabWithPayload } from "../redux/modules/tabReducer";
+import { updateList } from "../redux/modules/fanLetterDataReducer";
+import theme from "../styledComponents/theme/theme";
 function Form() {
   console.log("Form : Render");
 
   // ContextAPI
-  const tab = useCustomTabValueContext();
-  const tabActions = useCustomTabActionsContext();
-  const { lists, characters } = useCustomDataValue();
-  const actionsWidthData = useCustomDataActions();
+  // const tab = useCustomTabValueContext();
+  // const tabActions = useCustomTabActionsContext();
+  // const { lists, characters } = useCustomDataValue();
+  //const actionsWidthData = useCustomDataActions();
 
   // Reducer
   const dispatch = useDispatch();
+  const { fanLetterData } = useSelector((state) => state);
+  const characters = theme.character;
 
+  //Component
   const formRef = useRef({});
+
   const inputLabelNameId = useId();
   const inputLabelTextId = useId();
   const selectLabelId = useId();
@@ -42,10 +48,14 @@ function Form() {
     setFanLetterData(name, text);
   };
   const setFanLetterData = () => {
-    if (lists[formRef.target.value] === undefined) {
-      lists[formRef.target.value] = [];
+    // if (lists[formRef.target.value] === undefined) {
+    //   lists[formRef.target.value] = [];
+    // }
+    if (fanLetterData[formRef.target.value] === undefined) {
+      fanLetterData[formRef.target.value] = [];
     }
-    actionsWidthData.HandleEdit.useUpdateLists(formRef);
+    // actionsWidthData.HandleEdit.useUpdateLists(formRef);
+    dispatch(updateList(formRef));
   };
   return (
     <StFormContainer>
@@ -79,8 +89,10 @@ function Form() {
             as="select"
             id={selectLabelId}
             onChange={
+              (e) => {
+                dispatch(handleTabWithPayload(e));
+              }
               //tabActions.eventChangeTab
-              dispatch(handleTabWithPayload)
             }
           >
             {characters.map((item, i) => (
