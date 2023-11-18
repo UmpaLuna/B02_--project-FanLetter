@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useMemo } from "react";
 import uuid from "react-uuid";
 
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
-import Form from "./Form";
-import LetterList from "./LetterList";
-import NavigateBar from "./NavigateBar";
-import { TabContextProvider, useCustomDataValue } from "../context/ContextAPI";
+import Form from "../Components/Form";
+import LetterList from "../Components/LetterList";
+import NavigateBar from "../Components/NavigateBar";
+
 import theme from "../styledComponents/theme/theme";
 function Home() {
   console.log("Home :", "Render");
@@ -49,13 +49,6 @@ function Home() {
         );
       }, [characters])}
 
-      {/* <TabContextProvider>
-        <NavigateBar />
-        <Form />
-        <LetterList />
-      </TabContextProvider> */}
-
-      {/* Reducer */}
       <NavigateBar />
       <Form />
       <LetterList />

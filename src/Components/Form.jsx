@@ -8,23 +8,13 @@ import {
   StInputContainer,
   StInput,
 } from "../styledComponents/StyledForm";
-import {
-  useCustomTabActionsContext,
-  useCustomDataValue,
-  useCustomDataActions,
-} from "../context/ContextAPI";
+
 import { useDispatch, useSelector } from "react-redux";
 import { handleTabWithPayload } from "../redux/modules/tabReducer";
 import { updateList } from "../redux/modules/fanLetterDataReducer";
 import theme from "../styledComponents/theme/theme";
 function Form() {
   console.log("Form : Render");
-
-  // ContextAPI
-  // const tab = useCustomTabValueContext();
-  // const tabActions = useCustomTabActionsContext();
-  // const { lists, characters } = useCustomDataValue();
-  //const actionsWidthData = useCustomDataActions();
 
   // Reducer
   const dispatch = useDispatch();
@@ -48,13 +38,10 @@ function Form() {
     setFanLetterData(name, text);
   };
   const setFanLetterData = () => {
-    // if (lists[formRef.target.value] === undefined) {
-    //   lists[formRef.target.value] = [];
-    // }
     if (fanLetterData[formRef.target.value] === undefined) {
       fanLetterData[formRef.target.value] = [];
     }
-    // actionsWidthData.HandleEdit.useUpdateLists(formRef);
+
     dispatch(updateList(formRef));
   };
   return (
@@ -88,12 +75,9 @@ function Form() {
             ref={(ref) => (formRef["target"] = ref)}
             as="select"
             id={selectLabelId}
-            onChange={
-              (e) => {
-                dispatch(handleTabWithPayload(e));
-              }
-              //tabActions.eventChangeTab
-            }
+            onChange={(e) => {
+              dispatch(handleTabWithPayload(e));
+            }}
           >
             {characters.map((item, i) => (
               <StInput key={uuid()} as="option" value={item}>
