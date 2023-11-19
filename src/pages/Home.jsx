@@ -10,11 +10,10 @@ import NavigateBar from "../Components/NavigateBar";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const { fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
   const characters = fanLetterData.utility.characters;
 
   useEffect(() => {
-    console.log("Home의 useEffect :", "mount || update");
     const moveSlide = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * 5);
       for (let i = 0; i < mainRef.current.length; i++) {
@@ -24,7 +23,6 @@ function Home() {
     }, 2000);
 
     return () => {
-      console.log("Home의  :", "unmount,clearFunction");
       clearInterval(moveSlide);
     };
   }, []);

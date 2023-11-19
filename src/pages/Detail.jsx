@@ -4,23 +4,23 @@ import {
   StDetailContainer,
   StEditButton,
 } from "../styledComponents/StyledDetail";
-import { StInput } from "../styledComponents/StyledForm";
-import { StComment as StDetail } from "../styledComponents/StyledLetterForm";
+import { Input } from "../styledComponents/StyledForm";
+import { Comment as StDetail } from "../styledComponents/StyledLetterForm";
 
 import {
   editComment,
   removeComment,
 } from "../redux/modules/fanLetterDataReducer";
 import { useDispatch, useSelector } from "react-redux";
+
 function Detail() {
   const { member, id } = useParams();
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
   const editText = useRef();
-  // filteringMember 함수는 refactoring 할 때 localData객체 만들고 거기에 utility로 넣자
 
   //Reducer
-  const { fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
   const dispatch = useDispatch();
 
   const target = fanLetterData.utility.filteringMember(
@@ -57,7 +57,7 @@ function Detail() {
         {!edit ? (
           <StDetail.Text $detail>내용 : {target[0].text}</StDetail.Text>
         ) : (
-          <StInput
+          <Input
             as="textarea"
             maxLength={100}
             defaultValue={target[0].text}

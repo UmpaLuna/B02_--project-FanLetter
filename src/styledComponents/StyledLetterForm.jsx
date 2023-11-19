@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StFanLetterContainer = styled.div`
+export const FanLetterContainer = styled.div`
   max-width: 768px;
   padding: 1rem;
   margin: 20px auto;
@@ -10,7 +10,7 @@ export const StFanLetterContainer = styled.div`
   `};
 `;
 
-export const StFanLetterWrapper = styled.div`
+export const FanLetterWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +23,7 @@ export const StFanLetterWrapper = styled.div`
   `};
 `;
 
-export const StFanLetter = styled.div`
+export const FanLetter = styled.div`
   flex: 0 0 auto;
   width: 30%;
   margin: 0 0.5rem;
@@ -44,7 +44,7 @@ export const StFanLetter = styled.div`
   }
 `;
 
-export const StComment = {
+export const Comment = {
   Avatar: styled.img.attrs(({ theme: { imgSrc } }) => ({
     src: `${process.env.PUBLIC_URL + imgSrc.comment}`,
   }))`
@@ -84,11 +84,11 @@ export const StComment = {
   `,
 };
 
-export const StNothingLetter = styled.div`
+export const NothingLetter = styled.div`
   text-align: center;
   line-height: 1.4;
 `;
-export const StNothingLetterParagraph = styled.div`
+export const NothingLetterParagraph = styled.div`
   max-width: 330px;
   margin: 0 auto;
   font-size: 1.4rem;

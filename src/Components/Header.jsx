@@ -5,10 +5,10 @@ import uuid from "react-uuid";
 // StyledComponent
 import * as St from "../styledComponents/StyledHeader";
 function Header() {
-  const { fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
   const characters = fanLetterData.utility.characters;
   const navigate = useNavigate();
-  console.log(St);
+  console.log("Header:", "Render");
   return (
     <St.LayoutHeader>
       <St.LayoutNavBar>
@@ -26,4 +26,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default React.memo(Header);

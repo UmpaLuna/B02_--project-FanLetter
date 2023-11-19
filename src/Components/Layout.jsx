@@ -13,7 +13,6 @@ function Layout({ children }) {
 
   //Reducer
   const dispatch = useDispatch();
-
   const getLocalStorageItem = useCallback(() => {
     const parseData = JSON.parse(getData);
     return parseData;
@@ -37,7 +36,3 @@ function Layout({ children }) {
 }
 
 export default Layout;
-
-// const setLocalStorageItem = () => {
-//   localStorage.setItem("Tooniverse", JSON.stringify(lists));
-// };
