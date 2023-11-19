@@ -1,6 +1,7 @@
 import React from "react";
 import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import {
   StFanLetterContainer,
@@ -11,18 +12,16 @@ import {
   StComment,
 } from "../styledComponents/StyledLetterForm";
 
-import { useSelector } from "react-redux";
-import theme from "../styledComponents/theme/theme";
 function LetterList() {
   console.log("LetterList : ", "Render");
 
   //Reducer
   const { tabReducer, fanLetterData } = useSelector((state) => state);
-  const characters = theme.character;
+  const characters = fanLetterData.utility.characters;
 
   // Component
-  const listArr = fanLetterData[characters[tabReducer]];
-
+  const listArr = fanLetterData.value[characters[tabReducer]];
+  console.log(fanLetterData.value);
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {
     navigate(`/detail/${id}`);

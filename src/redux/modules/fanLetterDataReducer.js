@@ -1,5 +1,5 @@
 import uuid from "react-uuid";
-
+import theme from "../../styledComponents/theme/theme";
 // Ducks로 써주장
 /**
  * 1. actionValue 나열하시오
@@ -80,7 +80,18 @@ export const filterData = (payload) => {
 
 //initialStateValue
 const initialValue = {
-  state: {},
+  value: {},
+  utility: {
+    characters: theme.character,
+    findDataIndex(state, param) {
+      return state.value[param.member].findIndex(
+        (target) => target.id === param.id
+      );
+    },
+    filteringMember(state, member, id) {
+      return state.value[member].filter((target) => target.id === id);
+    },
+  },
 };
 
 // Reducer
@@ -89,10 +100,11 @@ const fanLetterData = (state = initialValue, action) => {
   switch (action.type) {
     // utility
     case SET_INITIAL_VALUE:
-      return action.payload;
+      console.log(action.payload);
+      return { ...state, value: { ...action.payload } };
 
     case SET_LOCALSTORAGE_DATA:
-      return handleLocalStorageDate(state);
+      return initialDataSetLocalStorage(state);
 
     //Edit
     case UPDATE_LIST:
@@ -109,27 +121,34 @@ const fanLetterData = (state = initialValue, action) => {
       return state;
   }
 };
+
 function handleEditComment(state, payload) {
   const { editText, member, id } = payload;
 
-  const targetIndex = findDataIndex(state, { member, id });
-  state[member][targetIndex].text = editText.current.value;
+  const targetIndex = state.utility.findDataIndex(state, { member, id });
+  state.value[member][targetIndex].text = editText.current.value;
+  updateLocalStorageData(state);
   return { ...state };
 }
+
 function handleRemoveComment(state, payload) {
-  const targetIndex = findDataIndex(state, payload);
-  state[payload.member].splice(targetIndex, 1);
-  if (!state[payload.member].length) {
-    delete state[payload.member];
+  const targetIndex = state.utility.findDataIndex(state, payload);
+
+  state.value[payload.member].splice(targetIndex, 1);
+  console.log(state);
+  if (!state.value[payload.member].length) {
+    delete state.value[payload.member];
   }
-  handleLocalStorageDate(state);
+  updateLocalStorageData(state);
   return { ...state };
 }
-function handleLocalStorageDate(state) {
-  localStorage.setItem("Tooniverse", JSON.stringify(state));
+
+function initialDataSetLocalStorage(state) {
+  localStorage.setItem("Tooniverse", JSON.stringify(state.value));
   const getData = localStorage.getItem("Tooniverse");
   const parseData = JSON.parse(getData);
-  return parseData;
+  const newState = { ...state, value: { ...parseData } };
+  return newState;
 }
 
 function updateLists(state, payload) {
@@ -141,16 +160,15 @@ function updateLists(state, payload) {
     target: payload.target.value,
   };
 
-  state[payload.target.value].unshift(letter);
+  state.value[payload.target.value].unshift(letter);
 
-  handleLocalStorageDate(state);
   payload.name.value = "";
   payload.text.value = "";
   return { ...state };
 }
 
-export function findDataIndex(state, param) {
-  return state[param.member].findIndex((target) => target.id === param.id);
+function updateLocalStorageData(state) {
+  localStorage.setItem("Tooniverse", JSON.stringify(state.value));
 }
 /**
  * refactoring 할 때 넣자

@@ -12,14 +12,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { handleTabWithPayload } from "../redux/modules/tabReducer";
 import { updateList } from "../redux/modules/fanLetterDataReducer";
-import theme from "../styledComponents/theme/theme";
+
 function Form() {
   console.log("Form : Render");
 
   // Reducer
   const dispatch = useDispatch();
   const { fanLetterData } = useSelector((state) => state);
-  const characters = theme.character;
+  const characters = fanLetterData.utility.characters;
 
   //Component
   const formRef = useRef({});
@@ -38,8 +38,8 @@ function Form() {
     setFanLetterData(name, text);
   };
   const setFanLetterData = () => {
-    if (fanLetterData[formRef.target.value] === undefined) {
-      fanLetterData[formRef.target.value] = [];
+    if (fanLetterData.value[formRef.target.value] === undefined) {
+      fanLetterData.value[formRef.target.value] = [];
     }
 
     dispatch(updateList(formRef));

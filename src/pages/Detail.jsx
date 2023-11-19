@@ -19,15 +19,15 @@ function Detail() {
   const editText = useRef();
   // filteringMember 함수는 refactoring 할 때 localData객체 만들고 거기에 utility로 넣자
 
-  const { fanLetterData } = useSelector((state) => state);
-  function filteringMember(member, id) {
-    return fanLetterData[member].filter((target) => target.id === id);
-  }
   //Reducer
+  const { fanLetterData } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const target = filteringMember(member, id);
-
+  const target = fanLetterData.utility.filteringMember(
+    fanLetterData,
+    member,
+    id
+  );
   const onClickEditComment = () => {
     setEdit(!edit);
   };
