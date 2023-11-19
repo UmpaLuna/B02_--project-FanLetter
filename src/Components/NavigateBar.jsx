@@ -1,10 +1,7 @@
 import React, { memo } from "react";
 import uuid from "react-uuid";
 
-import {
-  StNavContainer,
-  StNavigateItem,
-} from "../styledComponents/StyledNavigate";
+import * as St from "../styledComponents/StyledNavigate";
 
 import { useDispatch, useSelector } from "react-redux";
 import { changeTabNumber } from "../redux/modules/tabReducer";
@@ -12,15 +9,16 @@ function NavigateBar() {
   console.log("NaviageBar :", "Render");
 
   // Redux
-  const { tabReducer, fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
+  const tabReducer = useSelector((state) => state.tabReducer);
   const dispatch = useDispatch();
   const tabListsArr = fanLetterData.utility.characters;
 
   return (
-    <StNavContainer>
+    <St.NavContainer>
       {tabListsArr.map((item, idx) => {
         return (
-          <StNavigateItem
+          <St.NavigateItem
             onClick={() => {
               dispatch(changeTabNumber(idx));
             }}
@@ -29,10 +27,10 @@ function NavigateBar() {
             key={uuid()}
           >
             {item}
-          </StNavigateItem>
+          </St.NavigateItem>
         );
       })}
-    </StNavContainer>
+    </St.NavContainer>
   );
 }
 

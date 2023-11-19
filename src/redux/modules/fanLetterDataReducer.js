@@ -80,7 +80,73 @@ export const filterData = (payload) => {
 
 //initialStateValue
 const initialValue = {
-  value: {},
+  value: {
+    드래곤볼: [
+      {
+        id: uuid(),
+        name: "강백호",
+        text: "지구협찬은 받고 뿌시냐",
+        target: "드래곤볼",
+        date: "2023-11-19",
+      },
+      {
+        id: uuid(),
+        name: "주술회전짱",
+        text: "자식보고 싸우라고 하는 손오공..., 고죠센세가 그나마 나은건가?",
+        target: "드래곤볼",
+        date: "2023-11-19",
+      },
+    ],
+    천사소녀네티: [
+      {
+        id: uuid(),
+        name: "현역 수녀입니다.",
+        text: "수녀가 수녀가 아닐지도",
+        target: "천사소녀네티",
+        date: "2023-11-19",
+      },
+      {
+        id: uuid(),
+        name: "ang(ry)el",
+        text: "먼데 자기가 믿는 신 이름을 파냐, 파렴치하게",
+        target: "천사소녀네티",
+        date: "6억5만년70154(신계달력)",
+      },
+    ],
+
+    단비: [
+      {
+        id: uuid(),
+        name: "이제 분노조절 잘해",
+        text: "어렸을 때 엄마가 너보여주고 나서 내가 ADHD없어졌다 고맙다.",
+        target: "단비",
+        date: "2023-11-20",
+      },
+      {
+        id: uuid(),
+        name: "너희 엄마는...",
+        text: "너가 우리엄마 만나봐야됨, 징짜 넌 갱생 될걸?",
+        target: "단비",
+        date: "2023-11-14",
+      },
+    ],
+    디지몬: [
+      {
+        id: uuid(),
+        name: "아구몬 보고싶냐?",
+        text: "코딩 해보면 그 마음 안들걸??",
+        target: "디지몬",
+        date: "2023-11-01",
+      },
+      {
+        id: uuid(),
+        name: "일어나",
+        text: "아구몬 보고싶다면서 코딩해야지...",
+        target: "디지몬",
+        date: "2001-01-01",
+      },
+    ],
+  },
   utility: {
     characters: theme.character,
     findDataIndex(state, param) {
@@ -100,7 +166,6 @@ const fanLetterData = (state = initialValue, action) => {
   switch (action.type) {
     // utility
     case SET_INITIAL_VALUE:
-      console.log(action.payload);
       return { ...state, value: { ...action.payload } };
 
     case SET_LOCALSTORAGE_DATA:
@@ -135,7 +200,7 @@ function handleRemoveComment(state, payload) {
   const targetIndex = state.utility.findDataIndex(state, payload);
 
   state.value[payload.member].splice(targetIndex, 1);
-  console.log(state);
+
   if (!state.value[payload.member].length) {
     delete state.value[payload.member];
   }
@@ -161,7 +226,7 @@ function updateLists(state, payload) {
   };
 
   state.value[payload.target.value].unshift(letter);
-
+  updateLocalStorageData(state);
   payload.name.value = "";
   payload.text.value = "";
   return { ...state };
@@ -170,11 +235,5 @@ function updateLists(state, payload) {
 function updateLocalStorageData(state) {
   localStorage.setItem("Tooniverse", JSON.stringify(state.value));
 }
-/**
- * refactoring 할 때 넣자
- * function filteringMember(member, id) {
-  return lists[member].filter((target) => target.id === id);
-}
- */
 
 export default fanLetterData;

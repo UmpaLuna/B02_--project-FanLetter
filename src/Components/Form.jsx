@@ -1,13 +1,6 @@
-import React, { useRef, useId, memo } from "react";
+import React, { useRef, useId, memo, useCallback } from "react";
 import uuid from "react-uuid";
-import {
-  StForm,
-  StFormContainer,
-  StButton,
-  StInputLabel,
-  StInputContainer,
-  StInput,
-} from "../styledComponents/StyledForm";
+import * as St from "../styledComponents/StyledForm";
 
 import { useDispatch, useSelector } from "react-redux";
 import { handleTabWithPayload } from "../redux/modules/tabReducer";
@@ -18,7 +11,7 @@ function Form() {
 
   // Reducer
   const dispatch = useDispatch();
-  const { fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
   const characters = fanLetterData.utility.characters;
 
   //Component
@@ -28,50 +21,52 @@ function Form() {
   const inputLabelTextId = useId();
   const selectLabelId = useId();
 
-  const checkValidForm = () => {
+  const setFanLetterData = useCallback(() => {
+    if (fanLetterData.value[formRef.target.value] === undefined) {
+      fanLetterData.value[formRef.target.value] = [];
+    }
+
+    dispatch(updateList(formRef));
+  }, [fanLetterData.value, dispatch]);
+
+  const checkValidForm = useCallback(() => {
     const name = formRef.name;
     const text = formRef.text;
 
     if (name.value.trim() === "") return;
     if (text.value.trim() === "") return;
 
-    setFanLetterData(name, text);
-  };
-  const setFanLetterData = () => {
-    if (fanLetterData.value[formRef.target.value] === undefined) {
-      fanLetterData.value[formRef.target.value] = [];
-    }
+    setFanLetterData();
+  }, [setFanLetterData]);
 
-    dispatch(updateList(formRef));
-  };
   return (
-    <StFormContainer>
-      <StForm>
-        <StInputContainer>
-          <StInputLabel htmlFor={inputLabelNameId}>nickName</StInputLabel>
-          <StInput
+    <St.FormContainer>
+      <St.Form>
+        <St.InputContainer>
+          <St.InputLabel htmlFor={inputLabelNameId}>nickName</St.InputLabel>
+          <St.Input
             ref={(ref) => {
               formRef["name"] = ref;
             }}
             id={inputLabelNameId}
             placeholder="20자만"
           />
-        </StInputContainer>
-        <StInputContainer>
-          <StInputLabel htmlFor={inputLabelTextId}>Letter</StInputLabel>
-          <StInput
+        </St.InputContainer>
+        <St.InputContainer>
+          <St.InputLabel htmlFor={inputLabelTextId}>Letter</St.InputLabel>
+          <St.Input
             ref={(ref) => (formRef["text"] = ref)}
             id={inputLabelTextId}
             as="textarea"
             maxLength={100}
             placeholder="100자만"
           />
-        </StInputContainer>
-        <StInputContainer>
-          <StInputLabel htmlFor={selectLabelId} $select>
+        </St.InputContainer>
+        <St.InputContainer>
+          <St.InputLabel htmlFor={selectLabelId} $select>
             누구에게 보낼건가요??
-          </StInputLabel>
-          <StInput
+          </St.InputLabel>
+          <St.Input
             ref={(ref) => (formRef["target"] = ref)}
             as="select"
             id={selectLabelId}
@@ -80,15 +75,15 @@ function Form() {
             }}
           >
             {characters.map((item, i) => (
-              <StInput key={uuid()} as="option" value={item}>
+              <St.Input key={uuid()} as="option" value={item}>
                 {item}
-              </StInput>
+              </St.Input>
             ))}
-          </StInput>
-        </StInputContainer>
-        <StButton onClick={checkValidForm}>보내기</StButton>
-      </StForm>
-    </StFormContainer>
+          </St.Input>
+        </St.InputContainer>
+        <St.Button onClick={checkValidForm}>보내기</St.Button>
+      </St.Form>
+    </St.FormContainer>
   );
 }
 

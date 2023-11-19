@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StNavContainer = styled.div`
+export const NavContainer = styled.div`
   margin: 0 auto;
   margin-top: 2.4rem;
   max-width: 360px;
@@ -17,7 +17,7 @@ export const StNavContainer = styled.div`
   `}
 `;
 
-export const StNavigateItem = styled.div`
+export const NavigateItem = styled.div`
   padding: 1.6rem 1.4rem;
   width: 48%;
   border: 1px solid black;

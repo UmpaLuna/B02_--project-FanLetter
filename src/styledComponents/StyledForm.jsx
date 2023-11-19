@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const StFormContainer = styled.div`
+export const FormContainer = styled.div`
   margin: 0 auto;
   max-width: 380px;
   padding: 0 2.4rem;
 `;
-export const StForm = styled.form`
+export const Form = styled.form`
   padding: 2rem 0;
   border: 1px solid #58bce0;
   display: flex;
@@ -34,7 +34,7 @@ export const StyledButton = styled.button`
     border: 1px solid transparent;
   }
 `;
-export const StInputLabel = styled.label`
+export const InputLabel = styled.label`
   font-size: 1.5rem;
   width: 70px;
   ${(props) =>
@@ -45,7 +45,7 @@ export const StInputLabel = styled.label`
     `}
 `;
 
-export const StInputContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -53,7 +53,7 @@ export const StInputContainer = styled.div`
   padding: 1rem 2rem;
   justify-content: space-between;
 `;
-export const StInput = styled.input.attrs((props) => ({
+export const Input = styled.input.attrs((props) => ({
   type: "text",
   maxLength: `${props.maxLength || 20}`,
 }))`
@@ -73,6 +73,6 @@ export const StInput = styled.input.attrs((props) => ({
       `)}
   ${(props) => props.$detail && "width: 100%; "}
 `;
-export const StButton = styled(StyledButton).attrs({
+export const Button = styled(StyledButton).attrs({
   type: "button",
 })``;

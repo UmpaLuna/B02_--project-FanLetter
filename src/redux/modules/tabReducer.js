@@ -35,7 +35,6 @@ const tabReducer = (state = initialValue, action) => {
       return action.payload;
 
     case CHANGE_TAB_OF_VALUE:
-      console.log(action.payload);
       return state;
 
     default:

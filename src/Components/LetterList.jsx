@@ -3,25 +3,18 @@ import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import {
-  StFanLetterContainer,
-  StFanLetterWrapper,
-  StFanLetter,
-  StNothingLetter,
-  StNothingLetterParagraph,
-  StComment,
-} from "../styledComponents/StyledLetterForm";
+import * as St from "../styledComponents/StyledLetterForm";
 
 function LetterList() {
   console.log("LetterList : ", "Render");
 
   //Reducer
-  const { tabReducer, fanLetterData } = useSelector((state) => state);
+  const fanLetterData = useSelector((state) => state.fanLetterData);
+  const tabReducer = useSelector((state) => state.tabReducer);
   const characters = fanLetterData.utility.characters;
 
   // Component
   const listArr = fanLetterData.value[characters[tabReducer]];
-  console.log(fanLetterData.value);
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
@@ -30,38 +23,38 @@ function LetterList() {
   const DoShowList = () => {
     return listArr.map((item) => {
       return (
-        <StFanLetter
+        <St.FanLetter
           key={uuid()}
           onClick={() => navigateDetailPage(`${item.target}/${item.id}`)}
         >
-          <StComment.Div $img>
-            <StComment.Avatar />
-          </StComment.Div>
-          <StComment.Div $paragraph>
-            <StComment.Div>
-              <StComment.Author>{item.name}</StComment.Author>
-              <StComment.Date>{item.date}</StComment.Date>
-            </StComment.Div>
-            <StComment.Text>{item.text}</StComment.Text>
-          </StComment.Div>
-        </StFanLetter>
+          <St.Comment.Div $img>
+            <St.Comment.Avatar />
+          </St.Comment.Div>
+          <St.Comment.Div $paragraph>
+            <St.Comment.Div>
+              <St.Comment.Author>{item.name}</St.Comment.Author>
+              <St.Comment.Date>{item.date}</St.Comment.Date>
+            </St.Comment.Div>
+            <St.Comment.Text>{item.text}</St.Comment.Text>
+          </St.Comment.Div>
+        </St.FanLetter>
       );
     });
   };
 
   return (
-    <StFanLetterContainer>
+    <St.FanLetterContainer>
       {listArr === undefined ? (
-        <StNothingLetter>
-          <StNothingLetterParagraph>
+        <St.NothingLetter>
+          <St.NothingLetterParagraph>
             그대가 처음이네요.. <br />
             낭만 가득한 편지한통 써보세요
-          </StNothingLetterParagraph>
-        </StNothingLetter>
+          </St.NothingLetterParagraph>
+        </St.NothingLetter>
       ) : (
-        <StFanLetterWrapper>{DoShowList()}</StFanLetterWrapper>
+        <St.FanLetterWrapper>{DoShowList()}</St.FanLetterWrapper>
       )}
-    </StFanLetterContainer>
+    </St.FanLetterContainer>
   );
 }
 
