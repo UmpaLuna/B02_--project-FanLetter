@@ -3,7 +3,7 @@ import GlobalStyle from "./styledComponents/GlobalStyle.js";
 import Router from "./shared/Router.jsx";
 import { ThemeProvider } from "styled-components";
 import theme from "./styledComponents/theme/theme";
-import { LocalDataProvider } from "./context/ContextAPI.js";
+
 function App() {
   console.log("App :", "Render");
 

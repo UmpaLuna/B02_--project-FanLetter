@@ -10,28 +10,25 @@ import {
   StNothingLetterParagraph,
   StComment,
 } from "../styledComponents/StyledLetterForm";
-import {
-  useCustomDataValue,
-  useCustomTabValueContext,
-} from "../context/ContextAPI";
-import { useSelector } from "react-redux";
 
+import { useSelector } from "react-redux";
+import theme from "../styledComponents/theme/theme";
 function LetterList() {
   console.log("LetterList : ", "Render");
-  //Reducer
-  const tabReducer = useSelector((state) => state);
 
-  // ContextAPI
-  const { lists, characters } = useCustomDataValue();
-  const tab = useCustomTabValueContext();
-  const listArr = lists[characters[tabReducer]];
+  //Reducer
+  const { tabReducer, fanLetterData } = useSelector((state) => state);
+  const characters = theme.character;
+
+  // Component
+  const listArr = fanLetterData[characters[tabReducer]];
 
   const navigate = useNavigate();
   const navigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
 
-  const doShowList = () => {
+  const DoShowList = () => {
     return listArr.map((item) => {
       return (
         <StFanLetter
@@ -63,7 +60,7 @@ function LetterList() {
           </StNothingLetterParagraph>
         </StNothingLetter>
       ) : (
-        <StFanLetterWrapper>{doShowList()}</StFanLetterWrapper>
+        <StFanLetterWrapper>{DoShowList()}</StFanLetterWrapper>
       )}
     </StFanLetterContainer>
   );

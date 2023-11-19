@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import uuid from "react-uuid";
 
 // Ducks로 써주장
@@ -31,6 +30,7 @@ const FILTER_DATA = `${defaultPreNameActionValue}FILTER_DATA`;
 export const setInitialData = (payload) => {
   return {
     type: SET_INITIAL_VALUE,
+    payload,
   };
 };
 export const findingDataIndex = (payload) => {
@@ -57,28 +57,14 @@ export const updateList = (payload) => {
 export const editComment = (payload) => {
   return {
     type: EDIT_COMMENT,
-    payload: (state) => {
-      const { Ref, params } = payload;
-      // 아래는 여기서 처리해주면 안될듯..
-      //   if (Ref.current.defaultValue === Ref.current.value)
-      //     return alert("수정안됨");
-
-      const targetIndex = findDataIndex(state, params);
-      state[params.member][targetIndex].text = Ref.current.value;
-      return { ...state };
-    }, // {object로}받아와야함 {Ref, params}
+    payload,
   };
 };
 
 export const removeComment = (payload) => {
   return {
     type: REMOVE_COMMENT,
-    payload: (state) => {
-      const targetIndex = findDataIndex(state, payload);
-      state[payload.member].splice(targetIndex, 1);
-      HandleLocalStorageDate(state);
-      return { ...state };
-    },
+    payload,
   };
 };
 
@@ -103,30 +89,47 @@ const fanLetterData = (state = initialValue, action) => {
   switch (action.type) {
     // utility
     case SET_INITIAL_VALUE:
-      HandleLocalStorageDate(initialValue);
-      break;
+      return action.payload;
+
     case SET_LOCALSTORAGE_DATA:
-      HandleLocalStorageDate(state);
-      break;
+      return handleLocalStorageDate(state);
 
     //Edit
     case UPDATE_LIST:
       return updateLists(state, action.payload);
 
     case EDIT_COMMENT:
-      return action.payload(state);
+      return handleEditComment(state, action.payload);
 
     case REMOVE_COMMENT:
-      return action.payload(state);
+      return handleRemoveComment(state, action.payload);
     // For DetailPage
 
     default:
       return state;
   }
 };
+function handleEditComment(state, payload) {
+  const { editText, member, id } = payload;
 
-function HandleLocalStorageDate(state) {
+  const targetIndex = findDataIndex(state, { member, id });
+  state[member][targetIndex].text = editText.current.value;
+  return { ...state };
+}
+function handleRemoveComment(state, payload) {
+  const targetIndex = findDataIndex(state, payload);
+  state[payload.member].splice(targetIndex, 1);
+  if (!state[payload.member].length) {
+    delete state[payload.member];
+  }
+  handleLocalStorageDate(state);
+  return { ...state };
+}
+function handleLocalStorageDate(state) {
   localStorage.setItem("Tooniverse", JSON.stringify(state));
+  const getData = localStorage.getItem("Tooniverse");
+  const parseData = JSON.parse(getData);
+  return parseData;
 }
 
 function updateLists(state, payload) {
@@ -138,15 +141,22 @@ function updateLists(state, payload) {
     target: payload.target.value,
   };
 
+  state[payload.target.value].unshift(letter);
+
+  handleLocalStorageDate(state);
   payload.name.value = "";
   payload.text.value = "";
-  HandleLocalStorageDate(state);
-  state[payload.target.value].unshift(letter);
   return { ...state };
 }
 
-function findDataIndex(state, param) {
+export function findDataIndex(state, param) {
   return state[param.member].findIndex((target) => target.id === param.id);
 }
+/**
+ * refactoring 할 때 넣자
+ * function filteringMember(member, id) {
+  return lists[member].filter((target) => target.id === id);
+}
+ */
 
 export default fanLetterData;

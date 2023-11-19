@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useMemo } from "react";
 import uuid from "react-uuid";
 
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
-import Form from "./Form";
-import LetterList from "./LetterList";
-import NavigateBar from "./NavigateBar";
-import { TabContextProvider, useCustomDataValue } from "../context/ContextAPI";
+import Form from "../Components/Form";
+import LetterList from "../Components/LetterList";
+import NavigateBar from "../Components/NavigateBar";
+
+import theme from "../styledComponents/theme/theme";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const { characters } = useCustomDataValue();
+  const characters = theme.character;
 
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
@@ -20,7 +21,7 @@ function Home() {
       }
       mainRef.current[randomIndex].style.opacity = 1;
     }, 2000);
-    // unmount
+
     return () => {
       console.log("Home의  :", "unmount,clearFunction");
       clearInterval(moveSlide);
@@ -48,13 +49,6 @@ function Home() {
         );
       }, [characters])}
 
-      {/* <TabContextProvider>
-        <NavigateBar />
-        <Form />
-        <LetterList />
-      </TabContextProvider> */}
-
-      {/* Reducer */}
       <NavigateBar />
       <Form />
       <LetterList />

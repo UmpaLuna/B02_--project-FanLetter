@@ -5,18 +5,12 @@ import {
   StNavContainer,
   StNavigateItem,
 } from "../styledComponents/StyledNavigate";
-import {
-  useCustomTabActionsContext,
-  useCustomTabValueContext,
-} from "../context/ContextAPI";
+
 import theme from "../styledComponents/theme/theme";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTabNumber } from "../reudx/modules/tabReducer";
+import { changeTabNumber } from "../redux/modules/tabReducer";
 function NavigateBar() {
   console.log("NaviageBar :", "Render");
-  // contextAPI
-  const tabActions = useCustomTabActionsContext();
-  const tab = useCustomTabValueContext();
 
   // Redux
   const { tabReducer } = useSelector((state) => state);
@@ -28,13 +22,9 @@ function NavigateBar() {
         return (
           <StNavigateItem
             onClick={() => {
-              // tabActions.changeTab(idx);
               dispatch(changeTabNumber(idx));
             }}
-            $isActive={
-              // tab
-              tabReducer
-            }
+            $isActive={tabReducer}
             $idx={idx}
             key={uuid()}
           >

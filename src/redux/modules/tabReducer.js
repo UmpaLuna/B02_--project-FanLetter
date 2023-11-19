@@ -13,7 +13,10 @@ const CHANGE_TAB_OF_VALUE = "tab/CHANGE_TAB_OF_VALUE";
 
 // actionCreator
 export const changeTabNumber = (payload) => {
-  return { type: CHANGE_TAB_NUMBER, payload };
+  return {
+    type: CHANGE_TAB_NUMBER,
+    payload,
+  };
 };
 export const handleTabWithPayload = (payload) => {
   return {
@@ -33,7 +36,7 @@ const tabReducer = (state = initialValue, action) => {
 
     case CHANGE_TAB_OF_VALUE:
       console.log(action.payload);
-      return action.payload.target.value;
+      return state;
 
     default:
       return state;
