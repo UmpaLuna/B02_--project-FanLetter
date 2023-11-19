@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useMemo } from "react";
 import uuid from "react-uuid";
+import { useSelector } from "react-redux";
 
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "../Components/Form";
 import LetterList from "../Components/LetterList";
 import NavigateBar from "../Components/NavigateBar";
 
-import theme from "../styledComponents/theme/theme";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const characters = theme.character;
+  const { fanLetterData } = useSelector((state) => state);
+  const characters = fanLetterData.utility.characters;
 
   useEffect(() => {
     console.log("Home의 useEffect :", "mount || update");
