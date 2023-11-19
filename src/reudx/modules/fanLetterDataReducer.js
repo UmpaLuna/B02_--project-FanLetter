@@ -93,7 +93,9 @@ export const filterData = (payload) => {
 //END - actionCreator
 
 //initialStateValue
-const initialValue = {};
+const initialValue = {
+  state: {},
+};
 
 // Reducer
 
