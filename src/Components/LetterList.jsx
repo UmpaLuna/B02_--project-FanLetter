@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import * as St from "../styledComponents/StyledLetterForm";
+import theme from "../styledComponents/theme/theme";
 
 function LetterList() {
   console.log("LetterList : ", "Render");
@@ -11,14 +12,17 @@ function LetterList() {
   //Reducer
   const fanLetterData = useSelector((state) => state.fanLetterData);
   const tabReducer = useSelector((state) => state.tabReducer);
-  const characters = fanLetterData.utility.characters;
+  const characters = theme.character;
 
   // Component
   const listArr = fanLetterData.value[characters[tabReducer]];
   const navigate = useNavigate();
-  const navigateDetailPage = (id) => {
-    navigate(`/detail/${id}`);
-  };
+  const navigateDetailPage = useCallback(
+    (id) => {
+      navigate(`/detail/${id}`);
+    },
+    [navigate]
+  );
 
   const DoShowList = () => {
     return listArr.map((item) => {

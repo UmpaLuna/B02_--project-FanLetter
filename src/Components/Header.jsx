@@ -1,18 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import uuid from "react-uuid";
-// StyledComponent
+
 import * as St from "../styledComponents/StyledHeader";
+import theme from "../styledComponents/theme/theme";
 function Header() {
-  const fanLetterData = useSelector((state) => state.fanLetterData);
-  const characters = fanLetterData.utility.characters;
+  const characters = theme.character;
   const navigate = useNavigate();
+
   console.log("Header:", "Render");
   return (
     <St.LayoutHeader>
       <St.LayoutNavBar>
-        <St.LayoutLogoContainer onClick={() => navigate("/")}>
+        <St.LayoutLogoContainer onClick={() => navigate()}>
           <St.LayoutLogoImg />
         </St.LayoutLogoContainer>
         <St.LayoutBox>

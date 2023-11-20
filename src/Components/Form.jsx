@@ -1,10 +1,11 @@
 import React, { useRef, useId, memo, useCallback } from "react";
 import uuid from "react-uuid";
-import * as St from "../styledComponents/StyledForm";
-
 import { useDispatch, useSelector } from "react-redux";
+
+import * as St from "../styledComponents/StyledForm";
 import { handleTabWithPayload } from "../redux/modules/tabReducer";
 import { updateList } from "../redux/modules/fanLetterDataReducer";
+import theme from "../styledComponents/theme/theme";
 
 function Form() {
   console.log("Form : Render");
@@ -12,7 +13,7 @@ function Form() {
   // Reducer
   const dispatch = useDispatch();
   const fanLetterData = useSelector((state) => state.fanLetterData);
-  const characters = fanLetterData.utility.characters;
+  const characters = theme.character;
 
   //Component
   const formRef = useRef({});

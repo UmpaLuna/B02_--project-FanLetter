@@ -1,22 +1,21 @@
 import React, { memo } from "react";
 import uuid from "react-uuid";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as St from "../styledComponents/StyledNavigate";
-
-import { useDispatch, useSelector } from "react-redux";
 import { changeTabNumber } from "../redux/modules/tabReducer";
+import theme from "../styledComponents/theme/theme";
 function NavigateBar() {
   console.log("NaviageBar :", "Render");
 
   // Redux
-  const fanLetterData = useSelector((state) => state.fanLetterData);
   const tabReducer = useSelector((state) => state.tabReducer);
   const dispatch = useDispatch();
-  const tabListsArr = fanLetterData.utility.characters;
+  const characters = theme.character;
 
   return (
     <St.NavContainer>
-      {tabListsArr.map((item, idx) => {
+      {characters.map((item, idx) => {
         return (
           <St.NavigateItem
             onClick={() => {
