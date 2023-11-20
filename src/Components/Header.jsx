@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import uuid from "react-uuid";
 
+// Components
 import * as St from "../styledComponents/StyledHeader";
 import theme from "../styledComponents/theme/theme";
 function Header() {

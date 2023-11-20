@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import uuid from "react-uuid";
 import { useDispatch, useSelector } from "react-redux";
 
+//Components & ReduxModules
 import * as St from "../styledComponents/StyledNavigate";
 import { changeTabNumber } from "../redux/modules/tabReducer";
 import theme from "../styledComponents/theme/theme";

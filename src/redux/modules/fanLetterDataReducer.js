@@ -21,9 +21,6 @@ const UPDATE_LIST = `${defaultPreNameActionValue}UPDATE_LIST`;
 const EDIT_COMMENT = `${defaultPreNameActionValue}EDIT_COMMENT`;
 const REMOVE_COMMENT = `${defaultPreNameActionValue}REMOVE_COMMENT`;
 
-// To show : being used in Detail Page
-const FILTER_DATA = `${defaultPreNameActionValue}FILTER_DATA`;
-
 //START - actionCreator
 
 // utilityCreator
@@ -67,15 +64,6 @@ export const removeComment = (payload) => {
     payload,
   };
 };
-
-// to Shown of Deatil Creator : being used in Detail Page
-export const filterData = (payload) => {
-  return {
-    type: FILTER_DATA,
-    payload,
-  };
-};
-
 //END - actionCreator
 
 //initialStateValue
@@ -160,7 +148,6 @@ const initialValue = {
 };
 
 // Reducer
-
 const fanLetterData = (state = initialValue, action) => {
   switch (action.type) {
     // utility
@@ -179,7 +166,6 @@ const fanLetterData = (state = initialValue, action) => {
 
     case REMOVE_COMMENT:
       return handleRemoveComment(state, action.payload);
-    // For DetailPage
 
     default:
       return state;
