@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useMemo } from "react";
 import uuid from "react-uuid";
-import { useSelector } from "react-redux";
 
 import { StMain, StMainDivImg } from "../styledComponents/StyledHome";
 import Form from "../Components/Form";
 import LetterList from "../Components/LetterList";
 import NavigateBar from "../Components/NavigateBar";
-
+import theme from "../styledComponents/theme/theme";
 function Home() {
   console.log("Home :", "Render");
   const mainRef = useRef([]);
-  const fanLetterData = useSelector((state) => state.fanLetterData);
-  const characters = fanLetterData.utility.characters;
+  const characters = theme.character;
 
   useEffect(() => {
     const moveSlide = setInterval(() => {

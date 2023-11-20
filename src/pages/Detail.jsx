@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   StDetailContainer,
@@ -28,20 +28,21 @@ function Detail() {
     member,
     id
   );
-  const onClickEditComment = () => {
+  const onClickEditComment = useCallback(() => {
     setEdit(!edit);
-  };
-  const onClickUpdateComment = () => {
+  }, [edit]);
+  const onClickUpdateComment = useCallback(() => {
     if (editText.current.defaultValue === editText.current.value)
       return alert("수정이 안되었는디용");
     dispatch(editComment({ editText, member, id }));
 
     setEdit(!edit);
-  };
-  const onClickRemoveComment = () => {
+  }, [dispatch, edit, id, member]);
+  const onClickRemoveComment = useCallback(() => {
     dispatch(removeComment({ member, id }));
     navigate("/");
-  };
+  }, [dispatch, member, id, navigate]);
+
   console.log("Detail :", "Render");
   return (
     <StDetailContainer>
@@ -83,4 +84,4 @@ function Detail() {
   );
 }
 
-export default Detail;
+export default React.memo(Detail);

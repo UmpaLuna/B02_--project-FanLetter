@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import uuid from "react-uuid";
 // StyledComponent
 import * as St from "../styledComponents/StyledFoo";
 function Footer() {
-  const fooTitleArr = [
-    "모든 저작권은 Tooniverse에게..",
-    "손오공 언제 철들래;;; 치치에게 감사해라",
-    "어쨋거나 내 유년시절 그대들에게 감사",
-  ];
+  const fooTitleArr = useMemo(
+    () => [
+      "모든 저작권은 Tooniverse에게..",
+      "손오공 언제 철들래;;; 치치에게 감사해라",
+      "어쨋거나 내 유년시절 그대들에게 감사",
+    ],
+    []
+  );
   return (
     <St.LayoutFoo>
       <St.FooContainer>
