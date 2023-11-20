@@ -3,6 +3,7 @@ import uuid from "react-uuid";
 // Components
 import * as St from "../styledComponents/StyledFoo";
 function Footer() {
+  console.log("footer: ", "Render");
   const fooTitleArr = useMemo(
     () => [
       "모든 저작권은 Tooniverse에게..",
@@ -11,6 +12,7 @@ function Footer() {
     ],
     []
   );
+
   return (
     <St.LayoutFoo>
       <St.FooContainer>
