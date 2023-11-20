@@ -1,5 +1,4 @@
 import uuid from "react-uuid";
-import theme from "../../styledComponents/theme/theme";
 // Ducks로 써주장
 /**
  * 1. actionValue 나열하시오
