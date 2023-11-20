@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# rendering 최적화의 관하여...
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## useMemo, React.memo, useCallBack은 Redux branch에 결과적으로 다 써놓았습니다.
+- src/pages의 Home.jsx, Detail.jsx
+- src/Components의 Footer.jsx, Form.jsx, Header.jsx, Layout.jsx, LetterList.jsx, NavigateBar.jsx
+각 컴포넌트에 써놓았지만 제가 잘 작성한지 사실 '감'? 이 잘 안잡힙니다...
+그러나 무작정 감이 안잡힌다라기 보단,
 
-## Available Scripts
+Component, function, Calculate Value의 값을 혼자서 구별하고 그의 걸 맞는 dependency 배열의 value들을 써놓아 봤습니다.
 
-In the project directory, you can run:
+## Router- useNavigate의 re rendering
 
-### `yarn start`
+```javascript
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// 상위 컴포넌트
+  <Layout>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path={`detail/:member/:id`} element={<Detail />} />
+      <Route path="*" element={<h1>404 찾을수 없으셈</h1>} />
+    </Routes>
+  </Layout>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+--------------------
+// 하위 컴포넌트
+ Home.jsx
 
-### `yarn test`
+ <NavigateBar />
+ <Form />
+ <LetterList />
+```
+Header에 오른쪽 상단 로고에 useNavigate를 넣어놨습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Home안에 LetterList들에 각 comment를 누르면 
 
-### `yarn build`
+Detail페이지로 라우팅 되는데
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Header도 re render가 되는 것입니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+원인을 찾아보니, 제가 정리한 내용으론
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+router로 페이지 이동시 useNavigate의 값이 새로 변경되므로 useNavigate를 선언해준곳도 다시 re render가 되는 불필요한 현상이 일어난다는 것입니다.
 
-### `yarn eject`
+이것 때문에 무쟈게 애를 먹었었는데,, 아직 해결방법을 찾지를 못했습니다. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+방향성이라던지, 혹시 reference라던지 알려주시면 감사하겠습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+그 외 나머지는 부족하지만, 즐겁게 코드했습니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+비난을 하시진 않겠지만, 비판과, feedback은 언제나 늘 저를 성장시킵니다. 
