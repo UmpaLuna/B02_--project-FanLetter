@@ -148,7 +148,6 @@ const initialValue = {
     ],
   },
   utility: {
-    characters: theme.character,
     findDataIndex(state, param) {
       return state.value[param.member].findIndex(
         (target) => target.id === param.id

@@ -12,7 +12,7 @@ function Header() {
   return (
     <St.LayoutHeader>
       <St.LayoutNavBar>
-        <St.LayoutLogoContainer onClick={() => navigate()}>
+        <St.LayoutLogoContainer onClick={() => navigate("/")}>
           <St.LayoutLogoImg />
         </St.LayoutLogoContainer>
         <St.LayoutBox>
